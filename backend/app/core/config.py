@@ -1,0 +1,43 @@
+from __future__ import annotations
+
+from functools import lru_cache
+
+from pydantic_settings import BaseSettings, SettingsConfigDict
+
+
+class Settings(BaseSettings):
+    model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8", extra="ignore")
+
+    app_name: str = "ApexVision 3D API"
+    environment: str = "development"
+    # PostgreSQL in production (Neon), e.g. postgresql+psycopg://user:pass@host/db?sslmode=require
+    # Falls back to a local SQLite file so the API runs with zero setup.
+    database_url: str = "sqlite:///./apexvision.db"
+    cors_origins: str = "http://localhost:5173,http://127.0.0.1:5173"
+
+    # AI assistant. provider: auto | gemini | openai | offline
+    ai_provider: str = "auto"
+    gemini_api_key: str | None = None
+    gemini_model: str = "gemini-2.5-flash"
+    openai_api_key: str | None = None
+    openai_model: str = "gpt-4o-mini"
+    ai_rate_limit_per_minute: int = 12
+
+    @property
+    def cors_origin_list(self) -> list[str]:
+        return [o.strip() for o in self.cors_origins.split(",") if o.strip()]
+
+    @property
+    def sqlalchemy_url(self) -> str:
+        url = self.database_url
+        # Neon / Render hand out postgres:// URLs; SQLAlchemy needs an explicit driver.
+        if url.startswith("postgres://"):
+            url = "postgresql+psycopg://" + url[len("postgres://"):]
+        elif url.startswith("postgresql://"):
+            url = "postgresql+psycopg://" + url[len("postgresql://"):]
+        return url
+
+
+@lru_cache
+def get_settings() -> Settings:
+    return Settings()

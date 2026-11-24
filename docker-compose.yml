@@ -1,0 +1,43 @@
+# Local full stack: PostgreSQL + backend API + frontend (static build served by nginx).
+#   docker compose up --build
+#   open http://localhost:8080
+# Optional LLM: export GEMINI_API_KEY=... (or OPENAI_API_KEY) before `up`; without it the
+# assistant uses the built-in rule-based engine.
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: apex
+      POSTGRES_PASSWORD: apex_local_only
+      POSTGRES_DB: apexvision
+    ports: ["5432:5432"]
+    volumes: [pgdata:/var/lib/postgresql/data]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U apex -d apexvision"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+
+  backend:
+    build: ./backend
+    environment:
+      ENVIRONMENT: development
+      DATABASE_URL: postgresql://apex:apex_local_only@db:5432/apexvision
+      CORS_ORIGINS: http://localhost:8080,http://localhost:5173
+      AI_PROVIDER: auto
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+    ports: ["8000:8000"]
+    depends_on:
+      db: { condition: service_healthy }
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        VITE_API_BASE_URL: http://localhost:8000
+    ports: ["8080:80"]
+    depends_on: [backend]
+
+volumes:
+  pgdata:

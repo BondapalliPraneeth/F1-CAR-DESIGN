@@ -1,0 +1,2431 @@
+{
+ "model": "ApexVision AV-1 (original procedural design)",
+ "units": "m",
+ "axes": {
+  "forward": "+X",
+  "up": "+Y",
+  "left": "+Z"
+ },
+ "components": {
+  "front_wing": [
+   {
+    "node": "front_wing__mainplane",
+    "pivot": [
+     2.6304,
+     0.1198,
+     0.0
+    ],
+    "bbox_min": [
+     2.4608,
+     0.056,
+     -0.93
+    ],
+    "bbox_max": [
+     2.8,
+     0.1837,
+     0.93
+    ],
+    "triangles": 672,
+    "material": "carbon"
+   },
+   {
+    "node": "front_wing__flap_1_l",
+    "pivot": [
+     2.56,
+     0.13,
+     0.22
+    ],
+    "bbox_min": [
+     2.3293,
+     0.1192,
+     0.22
+    ],
+    "bbox_max": [
+     2.56,
+     0.2213,
+     0.92
+    ],
+    "triangles": 252,
+    "material": "carbon"
+   },
+   {
+    "node": "front_wing__flap_2_l",
+    "pivot": [
+     2.39,
+     0.19,
+     0.22
+    ],
+    "bbox_min": [
+     2.2311,
+     0.186,
+     0.22
+    ],
+    "bbox_max": [
+     2.3902,
+     0.3069,
+     0.92
+    ],
+    "triangles": 252,
+    "material": "cyan"
+   },
+   {
+    "node": "front_wing__endplate_l",
+    "pivot": [
+     2.5,
+     0.32,
+     0.937
+    ],
+    "bbox_min": [
+     2.2,
+     0.04,
+     0.931
+    ],
+    "bbox_max": [
+     2.83,
+     0.34,
+     0.943
+    ],
+    "triangles": 20,
+    "material": "white"
+   },
+   {
+    "node": "front_wing__pylon_l",
+    "pivot": [
+     2.5,
+     0.205,
+     0.075
+    ],
+    "bbox_min": [
+     2.45,
+     0.17,
+     0.068
+    ],
+    "bbox_max": [
+     2.55,
+     0.24,
+     0.082
+    ],
+    "triangles": 12,
+    "material": "carbon"
+   },
+   {
+    "node": "front_wing__flap_1_r",
+    "pivot": [
+     2.56,
+     0.13,
+     -0.22
+    ],
+    "bbox_min": [
+     2.3293,
+     0.1192,
+     -0.92
+    ],
+    "bbox_max": [
+     2.56,
+     0.2213,
+     -0.22
+    ],
+    "triangles": 252,
+    "material": "carbon"
+   },
+   {
+    "node": "front_wing__flap_2_r",
+    "pivot": [
+     2.39,
+     0.19,
+     -0.22
+    ],
+    "bbox_min": [
+     2.2311,
+     0.186,
+     -0.92
+    ],
+    "bbox_max": [
+     2.3902,
+     0.3069,
+     -0.22
+    ],
+    "triangles": 252,
+    "material": "cyan"
+   },
+   {
+    "node": "front_wing__endplate_r",
+    "pivot": [
+     2.5,
+     0.32,
+     -0.937
+    ],
+    "bbox_min": [
+     2.2,
+     0.04,
+     -0.943
+    ],
+    "bbox_max": [
+     2.83,
+     0.34,
+     -0.931
+    ],
+    "triangles": 20,
+    "material": "white"
+   },
+   {
+    "node": "front_wing__pylon_r",
+    "pivot": [
+     2.5,
+     0.205,
+     -0.075
+    ],
+    "bbox_min": [
+     2.45,
+     0.17,
+     -0.082
+    ],
+    "bbox_max": [
+     2.55,
+     0.24,
+     -0.068
+    ],
+    "triangles": 12,
+    "material": "carbon"
+   }
+  ],
+  "nose_cone": [
+   {
+    "node": "nose_cone__shell",
+    "pivot": [
+     2.07,
+     0.3523,
+     0.0
+    ],
+    "bbox_min": [
+     1.4,
+     0.1746,
+     -0.22
+    ],
+    "bbox_max": [
+     2.74,
+     0.53,
+     0.22
+    ],
+    "triangles": 2880,
+    "material": "navy"
+   },
+   {
+    "node": "nose_cone__tip",
+    "pivot": [
+     2.69,
+     0.225,
+     0.0
+    ],
+    "bbox_min": [
+     2.62,
+     0.17,
+     -0.075
+    ],
+    "bbox_max": [
+     2.76,
+     0.28,
+     0.075
+    ],
+    "triangles": 640,
+    "material": "cyan"
+   }
+  ],
+  "monocoque": [
+   {
+    "node": "monocoque__tub",
+    "pivot": [
+     0.425,
+     0.3712,
+     0.0
+    ],
+    "bbox_min": [
+     -0.55,
+     0.0689,
+     -0.37
+    ],
+    "bbox_max": [
+     1.4,
+     0.6734,
+     0.37
+    ],
+    "triangles": 2880,
+    "material": "navy"
+   },
+   {
+    "node": "monocoque__stripe_l",
+    "pivot": [
+     0.65,
+     0.4625,
+     0.28
+    ],
+    "bbox_min": [
+     0.1,
+     0.425,
+     0.203
+    ],
+    "bbox_max": [
+     1.2,
+     0.5,
+     0.357
+    ],
+    "triangles": 1280,
+    "material": "cyan"
+   },
+   {
+    "node": "monocoque__stripe_r",
+    "pivot": [
+     0.65,
+     0.4625,
+     -0.28
+    ],
+    "bbox_min": [
+     0.1,
+     0.425,
+     -0.357
+    ],
+    "bbox_max": [
+     1.2,
+     0.5,
+     -0.203
+    ],
+    "triangles": 1280,
+    "material": "cyan"
+   }
+  ],
+  "cockpit": [
+   {
+    "node": "cockpit__opening",
+    "pivot": [
+     0.08,
+     0.665,
+     0.0
+    ],
+    "bbox_min": [
+     -0.34,
+     0.64,
+     -0.215
+    ],
+    "bbox_max": [
+     0.5,
+     0.69,
+     0.215
+    ],
+    "triangles": 1280,
+    "material": "cockpit"
+   },
+   {
+    "node": "cockpit__surround",
+    "pivot": [
+     0.08,
+     0.675,
+     0.0
+    ],
+    "bbox_min": [
+     -0.372,
+     0.653,
+     -0.247
+    ],
+    "bbox_max": [
+     0.532,
+     0.697,
+     0.247
+    ],
+    "triangles": 1536,
+    "material": "carbon"
+   },
+   {
+    "node": "cockpit__headrest",
+    "pivot": [
+     -0.36,
+     0.69,
+     0.0
+    ],
+    "bbox_min": [
+     -0.43,
+     0.645,
+     -0.23
+    ],
+    "bbox_max": [
+     -0.29,
+     0.735,
+     0.23
+    ],
+    "triangles": 12,
+    "material": "carbon"
+   },
+   {
+    "node": "cockpit__steering_wheel",
+    "pivot": [
+     0.34,
+     0.63,
+     0.0
+    ],
+    "bbox_min": [
+     0.3037,
+     0.5638,
+     -0.135
+    ],
+    "bbox_max": [
+     0.3763,
+     0.6962,
+     0.135
+    ],
+    "triangles": 12,
+    "material": "carbon"
+   },
+   {
+    "node": "cockpit__helmet",
+    "pivot": [
+     -0.16,
+     0.76,
+     0.0
+    ],
+    "bbox_min": [
+     -0.285,
+     0.635,
+     -0.125
+    ],
+    "bbox_max": [
+     -0.035,
+     0.885,
+     0.125
+    ],
+    "triangles": 1280,
+    "material": "white"
+   }
+  ],
+  "halo": [
+   {
+    "node": "halo__pillar",
+    "pivot": [
+     0.6443,
+     0.7343,
+     0.0
+    ],
+    "bbox_min": [
+     0.5421,
+     0.5929,
+     -0.028
+    ],
+    "bbox_max": [
+     0.7464,
+     0.8757,
+     0.028
+    ],
+    "triangles": 1344,
+    "material": "titanium"
+   },
+   {
+    "node": "halo__hoop_l",
+    "pivot": [
+     0.0792,
+     0.7777,
+     0.1421
+    ],
+    "bbox_min": [
+     -0.4258,
+     0.6378,
+     -0.0102
+    ],
+    "bbox_max": [
+     0.5842,
+     0.9176,
+     0.2943
+    ],
+    "triangles": 1344,
+    "material": "titanium"
+   },
+   {
+    "node": "halo__hoop_r",
+    "pivot": [
+     0.0792,
+     0.7777,
+     -0.1421
+    ],
+    "bbox_min": [
+     -0.4258,
+     0.6378,
+     -0.2943
+    ],
+    "bbox_max": [
+     0.5842,
+     0.9176,
+     0.0102
+    ],
+    "triangles": 1344,
+    "material": "titanium"
+   }
+  ],
+  "sidepods": [
+   {
+    "node": "sidepods__body_l",
+    "pivot": [
+     -0.41,
+     0.3344,
+     0.5049
+    ],
+    "bbox_min": [
+     -1.28,
+     0.1489,
+     0.23
+    ],
+    "bbox_max": [
+     0.46,
+     0.5199,
+     0.7798
+    ],
+    "triangles": 2880,
+    "material": "navy"
+   },
+   {
+    "node": "sidepods__inlet_l",
+    "pivot": [
+     0.4675,
+     0.33,
+     0.5
+    ],
+    "bbox_min": [
+     0.465,
+     0.205,
+     0.355
+    ],
+    "bbox_max": [
+     0.47,
+     0.455,
+     0.645
+    ],
+    "triangles": 160,
+    "material": "cockpit"
+   },
+   {
+    "node": "sidepods__stripe_l",
+    "pivot": [
+     -0.1,
+     0.47,
+     0.51
+    ],
+    "bbox_min": [
+     -0.6,
+     0.438,
+     0.38
+    ],
+    "bbox_max": [
+     0.4,
+     0.502,
+     0.64
+    ],
+    "triangles": 960,
+    "material": "cyan"
+   },
+   {
+    "node": "sidepods__body_r",
+    "pivot": [
+     -0.41,
+     0.3344,
+     -0.5049
+    ],
+    "bbox_min": [
+     -1.28,
+     0.1489,
+     -0.7798
+    ],
+    "bbox_max": [
+     0.46,
+     0.5199,
+     -0.23
+    ],
+    "triangles": 2880,
+    "material": "navy"
+   },
+   {
+    "node": "sidepods__inlet_r",
+    "pivot": [
+     0.4675,
+     0.33,
+     -0.5
+    ],
+    "bbox_min": [
+     0.465,
+     0.205,
+     -0.645
+    ],
+    "bbox_max": [
+     0.47,
+     0.455,
+     -0.355
+    ],
+    "triangles": 160,
+    "material": "cockpit"
+   },
+   {
+    "node": "sidepods__stripe_r",
+    "pivot": [
+     -0.1,
+     0.47,
+     -0.51
+    ],
+    "bbox_min": [
+     -0.6,
+     0.438,
+     -0.64
+    ],
+    "bbox_max": [
+     0.4,
+     0.502,
+     -0.38
+    ],
+    "triangles": 960,
+    "material": "cyan"
+   }
+  ],
+  "radiators": [
+   {
+    "node": "radiators__core_l",
+    "pivot": [
+     0.08,
+     0.33,
+     0.55
+    ],
+    "bbox_min": [
+     -0.0096,
+     0.2032,
+     0.4
+    ],
+    "bbox_max": [
+     0.1696,
+     0.4568,
+     0.7
+    ],
+    "triangles": 12,
+    "material": "radiator"
+   },
+   {
+    "node": "radiators__header_l",
+    "pivot": [
+     0.02,
+     0.47,
+     0.55
+    ],
+    "bbox_min": [
+     0.002,
+     0.452,
+     0.42
+    ],
+    "bbox_max": [
+     0.038,
+     0.488,
+     0.68
+    ],
+    "triangles": 48,
+    "material": "radiator"
+   },
+   {
+    "node": "radiators__core_r",
+    "pivot": [
+     0.08,
+     0.33,
+     -0.55
+    ],
+    "bbox_min": [
+     -0.0096,
+     0.2032,
+     -0.7
+    ],
+    "bbox_max": [
+     0.1696,
+     0.4568,
+     -0.4
+    ],
+    "triangles": 12,
+    "material": "radiator"
+   },
+   {
+    "node": "radiators__header_r",
+    "pivot": [
+     0.02,
+     0.47,
+     -0.55
+    ],
+    "bbox_min": [
+     0.002,
+     0.452,
+     -0.68
+    ],
+    "bbox_max": [
+     0.038,
+     0.488,
+     -0.42
+    ],
+    "triangles": 48,
+    "material": "radiator"
+   }
+  ],
+  "floor": [
+   {
+    "node": "floor__plate",
+    "pivot": [
+     -0.175,
+     0.029,
+     0.0
+    ],
+    "bbox_min": [
+     -1.5,
+     0.022,
+     -0.85
+    ],
+    "bbox_max": [
+     1.15,
+     0.036,
+     0.85
+    ],
+    "triangles": 48,
+    "material": "carbon"
+   },
+   {
+    "node": "floor__edge_l",
+    "pivot": [
+     -0.05,
+     0.058,
+     0.845
+    ],
+    "bbox_min": [
+     -0.6,
+     0.0355,
+     0.839
+    ],
+    "bbox_max": [
+     0.5,
+     0.0805,
+     0.851
+    ],
+    "triangles": 12,
+    "material": "cyan"
+   },
+   {
+    "node": "floor__edge_r",
+    "pivot": [
+     -0.05,
+     0.058,
+     -0.845
+    ],
+    "bbox_min": [
+     -0.6,
+     0.0355,
+     -0.851
+    ],
+    "bbox_max": [
+     0.5,
+     0.0805,
+     -0.839
+    ],
+    "triangles": 12,
+    "material": "cyan"
+   }
+  ],
+  "venturi_tunnels": [
+   {
+    "node": "venturi_tunnels__tunnel_l",
+    "pivot": [
+     -0.25,
+     0.1056,
+     0.36
+    ],
+    "bbox_min": [
+     -1.45,
+     0.036,
+     0.16
+    ],
+    "bbox_max": [
+     0.95,
+     0.1752,
+     0.56
+    ],
+    "triangles": 320,
+    "material": "carbon"
+   },
+   {
+    "node": "venturi_tunnels__fence_l1",
+    "pivot": [
+     0.92,
+     0.065,
+     0.16
+    ],
+    "bbox_min": [
+     0.72,
+     0.0,
+     0.155
+    ],
+    "bbox_max": [
+     1.12,
+     0.13,
+     0.165
+    ],
+    "triangles": 20,
+    "material": "carbon"
+   },
+   {
+    "node": "venturi_tunnels__fence_l2",
+    "pivot": [
+     0.92,
+     0.065,
+     0.36
+    ],
+    "bbox_min": [
+     0.72,
+     0.0,
+     0.355
+    ],
+    "bbox_max": [
+     1.12,
+     0.13,
+     0.365
+    ],
+    "triangles": 20,
+    "material": "white"
+   },
+   {
+    "node": "venturi_tunnels__fence_l3",
+    "pivot": [
+     0.92,
+     0.065,
+     0.56
+    ],
+    "bbox_min": [
+     0.72,
+     0.0,
+     0.555
+    ],
+    "bbox_max": [
+     1.12,
+     0.13,
+     0.565
+    ],
+    "triangles": 20,
+    "material": "carbon"
+   },
+   {
+    "node": "venturi_tunnels__tunnel_r",
+    "pivot": [
+     -0.25,
+     0.1056,
+     -0.36
+    ],
+    "bbox_min": [
+     -1.45,
+     0.036,
+     -0.56
+    ],
+    "bbox_max": [
+     0.95,
+     0.1752,
+     -0.16
+    ],
+    "triangles": 320,
+    "material": "carbon"
+   },
+   {
+    "node": "venturi_tunnels__fence_r1",
+    "pivot": [
+     0.92,
+     0.065,
+     -0.16
+    ],
+    "bbox_min": [
+     0.72,
+     0.0,
+     -0.165
+    ],
+    "bbox_max": [
+     1.12,
+     0.13,
+     -0.155
+    ],
+    "triangles": 20,
+    "material": "carbon"
+   },
+   {
+    "node": "venturi_tunnels__fence_r2",
+    "pivot": [
+     0.92,
+     0.065,
+     -0.36
+    ],
+    "bbox_min": [
+     0.72,
+     0.0,
+     -0.365
+    ],
+    "bbox_max": [
+     1.12,
+     0.13,
+     -0.355
+    ],
+    "triangles": 20,
+    "material": "white"
+   },
+   {
+    "node": "venturi_tunnels__fence_r3",
+    "pivot": [
+     0.92,
+     0.065,
+     -0.56
+    ],
+    "bbox_min": [
+     0.72,
+     0.0,
+     -0.565
+    ],
+    "bbox_max": [
+     1.12,
+     0.13,
+     -0.555
+    ],
+    "triangles": 20,
+    "material": "carbon"
+   }
+  ],
+  "diffuser": [
+   {
+    "node": "diffuser__ramp",
+    "pivot": [
+     -1.815,
+     0.1625,
+     0.0
+    ],
+    "bbox_min": [
+     -2.18,
+     0.037,
+     -0.55
+    ],
+    "bbox_max": [
+     -1.45,
+     0.288,
+     0.55
+    ],
+    "triangles": 192,
+    "material": "carbon"
+   },
+   {
+    "node": "diffuser__side_l",
+    "pivot": [
+     -1.815,
+     0.165,
+     0.555
+    ],
+    "bbox_min": [
+     -2.18,
+     0.03,
+     0.549
+    ],
+    "bbox_max": [
+     -1.45,
+     0.3,
+     0.561
+    ],
+    "triangles": 16,
+    "material": "carbon"
+   },
+   {
+    "node": "diffuser__strake_l1",
+    "pivot": [
+     -1.855,
+     0.145,
+     0.18
+    ],
+    "bbox_min": [
+     -2.16,
+     0.03,
+     0.176
+    ],
+    "bbox_max": [
+     -1.55,
+     0.26,
+     0.184
+    ],
+    "triangles": 12,
+    "material": "cyan"
+   },
+   {
+    "node": "diffuser__strake_l2",
+    "pivot": [
+     -1.855,
+     0.145,
+     0.38
+    ],
+    "bbox_min": [
+     -2.16,
+     0.03,
+     0.376
+    ],
+    "bbox_max": [
+     -1.55,
+     0.26,
+     0.384
+    ],
+    "triangles": 12,
+    "material": "cyan"
+   },
+   {
+    "node": "diffuser__side_r",
+    "pivot": [
+     -1.815,
+     0.165,
+     -0.555
+    ],
+    "bbox_min": [
+     -2.18,
+     0.03,
+     -0.561
+    ],
+    "bbox_max": [
+     -1.45,
+     0.3,
+     -0.549
+    ],
+    "triangles": 16,
+    "material": "carbon"
+   },
+   {
+    "node": "diffuser__strake_r1",
+    "pivot": [
+     -1.855,
+     0.145,
+     -0.18
+    ],
+    "bbox_min": [
+     -2.16,
+     0.03,
+     -0.184
+    ],
+    "bbox_max": [
+     -1.55,
+     0.26,
+     -0.176
+    ],
+    "triangles": 12,
+    "material": "cyan"
+   },
+   {
+    "node": "diffuser__strake_r2",
+    "pivot": [
+     -1.855,
+     0.145,
+     -0.38
+    ],
+    "bbox_min": [
+     -2.16,
+     0.03,
+     -0.384
+    ],
+    "bbox_max": [
+     -1.55,
+     0.26,
+     -0.376
+    ],
+    "triangles": 12,
+    "material": "cyan"
+   }
+  ],
+  "power_unit": [
+   {
+    "node": "power_unit__cover",
+    "pivot": [
+     -1.2,
+     0.45,
+     0.0
+    ],
+    "bbox_min": [
+     -1.95,
+     0.2,
+     -0.34
+    ],
+    "bbox_max": [
+     -0.45,
+     0.7,
+     0.34
+    ],
+    "triangles": 2880,
+    "material": "navy"
+   },
+   {
+    "node": "power_unit__airbox",
+    "pivot": [
+     -0.625,
+     0.7809,
+     0.0
+    ],
+    "bbox_min": [
+     -0.95,
+     0.56,
+     -0.12
+    ],
+    "bbox_max": [
+     -0.3,
+     1.0019,
+     0.12
+    ],
+    "triangles": 2880,
+    "material": "navy"
+   },
+   {
+    "node": "power_unit__fin",
+    "pivot": [
+     -1.25,
+     0.725,
+     0.0
+    ],
+    "bbox_min": [
+     -1.9,
+     0.5,
+     -0.004
+    ],
+    "bbox_max": [
+     -0.6,
+     0.95,
+     0.004
+    ],
+    "triangles": 16,
+    "material": "cyan"
+   },
+   {
+    "node": "power_unit__block",
+    "pivot": [
+     -0.86,
+     0.33,
+     0.0
+    ],
+    "bbox_min": [
+     -1.17,
+     0.17,
+     -0.2
+    ],
+    "bbox_max": [
+     -0.55,
+     0.49,
+     0.2
+    ],
+    "triangles": 12,
+    "material": "engine"
+   },
+   {
+    "node": "power_unit__turbo",
+    "pivot": [
+     -0.48,
+     0.42,
+     0.0
+    ],
+    "bbox_min": [
+     -0.565,
+     0.335,
+     -0.08
+    ],
+    "bbox_max": [
+     -0.395,
+     0.505,
+     0.08
+    ],
+    "triangles": 192,
+    "material": "exhaust"
+   },
+   {
+    "node": "power_unit__gearbox",
+    "pivot": [
+     -1.58,
+     0.29,
+     0.0
+    ],
+    "bbox_min": [
+     -1.855,
+     0.19,
+     -0.11
+    ],
+    "bbox_max": [
+     -1.305,
+     0.39,
+     0.11
+    ],
+    "triangles": 12,
+    "material": "engine"
+   },
+   {
+    "node": "power_unit__exhaust",
+    "pivot": [
+     -1.85,
+     0.435,
+     0.0
+    ],
+    "bbox_min": [
+     -2.2006,
+     0.385,
+     -0.045
+    ],
+    "bbox_max": [
+     -1.4994,
+     0.485,
+     0.045
+    ],
+    "triangles": 48,
+    "material": "exhaust"
+   }
+  ],
+  "rear_crash_structure": [
+   {
+    "node": "rear_crash_structure__structure",
+    "pivot": [
+     -2.15,
+     0.3,
+     0.0
+    ],
+    "bbox_min": [
+     -2.45,
+     0.21,
+     -0.11
+    ],
+    "bbox_max": [
+     -1.85,
+     0.39,
+     0.11
+    ],
+    "triangles": 800,
+    "material": "carbon"
+   },
+   {
+    "node": "rear_crash_structure__rain_light",
+    "pivot": [
+     -2.465,
+     0.3,
+     0.0
+    ],
+    "bbox_min": [
+     -2.475,
+     0.275,
+     -0.045
+    ],
+    "bbox_max": [
+     -2.455,
+     0.325,
+     0.045
+    ],
+    "triangles": 12,
+    "material": "rainlight"
+   }
+  ],
+  "rear_wing": [
+   {
+    "node": "rear_wing__mainplane",
+    "pivot": [
+     -2.4174,
+     0.8169,
+     0.0
+    ],
+    "bbox_min": [
+     -2.5848,
+     0.7747,
+     -0.5
+    ],
+    "bbox_max": [
+     -2.25,
+     0.859,
+     0.5
+    ],
+    "triangles": 336,
+    "material": "carbon"
+   },
+   {
+    "node": "rear_wing__beam_wing",
+    "pivot": [
+     -2.399,
+     0.4773,
+     0.0
+    ],
+    "bbox_min": [
+     -2.4981,
+     0.4567,
+     -0.45
+    ],
+    "bbox_max": [
+     -2.3,
+     0.4978,
+     0.45
+    ],
+    "triangles": 168,
+    "material": "carbon"
+   },
+   {
+    "node": "rear_wing__endplate_l",
+    "pivot": [
+     -2.45,
+     0.45,
+     0.512
+    ],
+    "bbox_min": [
+     -2.78,
+     0.45,
+     0.505
+    ],
+    "bbox_max": [
+     -2.12,
+     1.06,
+     0.519
+    ],
+    "triangles": 20,
+    "material": "navy"
+   },
+   {
+    "node": "rear_wing__pylon_l",
+    "pivot": [
+     -2.26,
+     0.62,
+     0.08
+    ],
+    "bbox_min": [
+     -2.42,
+     0.38,
+     0.07
+    ],
+    "bbox_max": [
+     -2.1,
+     0.86,
+     0.09
+    ],
+    "triangles": 16,
+    "material": "carbon"
+   },
+   {
+    "node": "rear_wing__endplate_r",
+    "pivot": [
+     -2.45,
+     0.45,
+     -0.512
+    ],
+    "bbox_min": [
+     -2.78,
+     0.45,
+     -0.519
+    ],
+    "bbox_max": [
+     -2.12,
+     1.06,
+     -0.505
+    ],
+    "triangles": 20,
+    "material": "navy"
+   },
+   {
+    "node": "rear_wing__pylon_r",
+    "pivot": [
+     -2.26,
+     0.62,
+     -0.08
+    ],
+    "bbox_min": [
+     -2.42,
+     0.38,
+     -0.09
+    ],
+    "bbox_max": [
+     -2.1,
+     0.86,
+     -0.07
+    ],
+    "triangles": 16,
+    "material": "carbon"
+   }
+  ],
+  "drs": [
+   {
+    "node": "drs__flap",
+    "pivot": [
+     -2.7034,
+     1.0204,
+     0.0
+    ],
+    "bbox_min": [
+     -2.7034,
+     0.8822,
+     -0.5
+    ],
+    "bbox_max": [
+     -2.5295,
+     1.0204,
+     0.5
+    ],
+    "triangles": 336,
+    "material": "cyan"
+   },
+   {
+    "node": "drs__actuator",
+    "pivot": [
+     -2.56,
+     0.85,
+     0.0
+    ],
+    "bbox_min": [
+     -2.58,
+     0.805,
+     -0.025
+    ],
+    "bbox_max": [
+     -2.54,
+     0.895,
+     0.025
+    ],
+    "triangles": 12,
+    "material": "titanium"
+   }
+  ],
+  "front_tyres": [
+   {
+    "node": "front_tyres__tyre_l",
+    "pivot": [
+     1.8,
+     0.36,
+     0.8
+    ],
+    "bbox_min": [
+     1.44,
+     0.0,
+     0.65
+    ],
+    "bbox_max": [
+     2.16,
+     0.72,
+     0.95
+    ],
+    "triangles": 4032,
+    "material": "rubber"
+   },
+   {
+    "node": "front_tyres__rim_l",
+    "pivot": [
+     1.8,
+     0.36,
+     0.8
+    ],
+    "bbox_min": [
+     1.565,
+     0.125,
+     0.6575
+    ],
+    "bbox_max": [
+     2.035,
+     0.595,
+     0.9425
+    ],
+    "triangles": 1536,
+    "material": "rim"
+   },
+   {
+    "node": "front_tyres__face_l",
+    "pivot": [
+     1.8,
+     0.36,
+     0.8
+    ],
+    "bbox_min": [
+     1.58,
+     0.14,
+     0.917
+    ],
+    "bbox_max": [
+     2.02,
+     0.58,
+     0.929
+    ],
+    "triangles": 192,
+    "material": "carbon"
+   },
+   {
+    "node": "front_tyres__nut_l",
+    "pivot": [
+     1.8,
+     0.36,
+     0.8
+    ],
+    "bbox_min": [
+     1.75,
+     0.31,
+     0.92
+    ],
+    "bbox_max": [
+     1.85,
+     0.41,
+     0.95
+    ],
+    "triangles": 192,
+    "material": "cyan"
+   },
+   {
+    "node": "front_tyres__tyre_r",
+    "pivot": [
+     1.8,
+     0.36,
+     -0.8
+    ],
+    "bbox_min": [
+     1.44,
+     0.0,
+     -0.95
+    ],
+    "bbox_max": [
+     2.16,
+     0.72,
+     -0.65
+    ],
+    "triangles": 4032,
+    "material": "rubber"
+   },
+   {
+    "node": "front_tyres__rim_r",
+    "pivot": [
+     1.8,
+     0.36,
+     -0.8
+    ],
+    "bbox_min": [
+     1.565,
+     0.125,
+     -0.9425
+    ],
+    "bbox_max": [
+     2.035,
+     0.595,
+     -0.6575
+    ],
+    "triangles": 1536,
+    "material": "rim"
+   },
+   {
+    "node": "front_tyres__face_r",
+    "pivot": [
+     1.8,
+     0.36,
+     -0.8
+    ],
+    "bbox_min": [
+     1.58,
+     0.14,
+     -0.929
+    ],
+    "bbox_max": [
+     2.02,
+     0.58,
+     -0.917
+    ],
+    "triangles": 192,
+    "material": "carbon"
+   },
+   {
+    "node": "front_tyres__nut_r",
+    "pivot": [
+     1.8,
+     0.36,
+     -0.8
+    ],
+    "bbox_min": [
+     1.75,
+     0.31,
+     -0.95
+    ],
+    "bbox_max": [
+     1.85,
+     0.41,
+     -0.92
+    ],
+    "triangles": 192,
+    "material": "cyan"
+   }
+  ],
+  "front_brakes": [
+   {
+    "node": "front_brakes__disc_l",
+    "pivot": [
+     1.8,
+     0.36,
+     0.76
+    ],
+    "bbox_min": [
+     1.635,
+     0.195,
+     0.744
+    ],
+    "bbox_max": [
+     1.965,
+     0.525,
+     0.776
+    ],
+    "triangles": 192,
+    "material": "disc"
+   },
+   {
+    "node": "front_brakes__caliper_l",
+    "pivot": [
+     1.74,
+     0.51,
+     0.725
+    ],
+    "bbox_min": [
+     1.6642,
+     0.4463,
+     0.695
+    ],
+    "bbox_max": [
+     1.8158,
+     0.5737,
+     0.755
+    ],
+    "triangles": 12,
+    "material": "caliper"
+   },
+   {
+    "node": "front_brakes__disc_r",
+    "pivot": [
+     1.8,
+     0.36,
+     -0.76
+    ],
+    "bbox_min": [
+     1.635,
+     0.195,
+     -0.776
+    ],
+    "bbox_max": [
+     1.965,
+     0.525,
+     -0.744
+    ],
+    "triangles": 192,
+    "material": "disc"
+   },
+   {
+    "node": "front_brakes__caliper_r",
+    "pivot": [
+     1.74,
+     0.51,
+     -0.725
+    ],
+    "bbox_min": [
+     1.6642,
+     0.4463,
+     -0.755
+    ],
+    "bbox_max": [
+     1.8158,
+     0.5737,
+     -0.695
+    ],
+    "triangles": 12,
+    "material": "caliper"
+   }
+  ],
+  "front_suspension": [
+   {
+    "node": "front_suspension__upright_l",
+    "pivot": [
+     1.8,
+     0.36,
+     0.7
+    ],
+    "bbox_min": [
+     1.755,
+     0.225,
+     0.675
+    ],
+    "bbox_max": [
+     1.845,
+     0.495,
+     0.725
+    ],
+    "triangles": 12,
+    "material": "titanium"
+   },
+   {
+    "node": "front_suspension__upper_front_l",
+    "pivot": [
+     1.925,
+     0.46,
+     0.44
+    ],
+    "bbox_min": [
+     1.7884,
+     0.427,
+     0.1842
+    ],
+    "bbox_max": [
+     2.0616,
+     0.493,
+     0.6958
+    ],
+    "triangles": 48,
+    "material": "carbon"
+   },
+   {
+    "node": "front_suspension__upper_rear_l",
+    "pivot": [
+     1.675,
+     0.465,
+     0.45
+    ],
+    "bbox_min": [
+     1.5385,
+     0.437,
+     0.204
+    ],
+    "bbox_max": [
+     1.8115,
+     0.493,
+     0.696
+    ],
+    "triangles": 48,
+    "material": "carbon"
+   },
+   {
+    "node": "front_suspension__lower_front_l",
+    "pivot": [
+     1.95,
+     0.22,
+     0.44
+    ],
+    "bbox_min": [
+     1.7889,
+     0.207,
+     0.1833
+    ],
+    "bbox_max": [
+     2.1111,
+     0.233,
+     0.6967
+    ],
+    "triangles": 48,
+    "material": "carbon"
+   },
+   {
+    "node": "front_suspension__lower_rear_l",
+    "pivot": [
+     1.65,
+     0.21,
+     0.45
+    ],
+    "bbox_min": [
+     1.489,
+     0.187,
+     0.2031
+    ],
+    "bbox_max": [
+     1.811,
+     0.233,
+     0.6969
+    ],
+    "triangles": 48,
+    "material": "carbon"
+   },
+   {
+    "node": "front_suspension__pushrod_l",
+    "pivot": [
+     1.76,
+     0.365,
+     0.43
+    ],
+    "bbox_min": [
+     1.7091,
+     0.2204,
+     0.1846
+    ],
+    "bbox_max": [
+     1.8109,
+     0.5096,
+     0.6754
+    ],
+    "triangles": 48,
+    "material": "titanium"
+   },
+   {
+    "node": "front_suspension__track_rod_l",
+    "pivot": [
+     1.94,
+     0.31,
+     0.435
+    ],
+    "bbox_min": [
+     1.931,
+     0.301,
+     0.19
+    ],
+    "bbox_max": [
+     1.949,
+     0.319,
+     0.68
+    ],
+    "triangles": 48,
+    "material": "carbon"
+   },
+   {
+    "node": "front_suspension__upright_r",
+    "pivot": [
+     1.8,
+     0.36,
+     -0.7
+    ],
+    "bbox_min": [
+     1.755,
+     0.225,
+     -0.725
+    ],
+    "bbox_max": [
+     1.845,
+     0.495,
+     -0.675
+    ],
+    "triangles": 12,
+    "material": "titanium"
+   },
+   {
+    "node": "front_suspension__upper_front_r",
+    "pivot": [
+     1.925,
+     0.46,
+     -0.44
+    ],
+    "bbox_min": [
+     1.7884,
+     0.427,
+     -0.6958
+    ],
+    "bbox_max": [
+     2.0616,
+     0.493,
+     -0.1842
+    ],
+    "triangles": 48,
+    "material": "carbon"
+   },
+   {
+    "node": "front_suspension__upper_rear_r",
+    "pivot": [
+     1.675,
+     0.465,
+     -0.45
+    ],
+    "bbox_min": [
+     1.5385,
+     0.437,
+     -0.696
+    ],
+    "bbox_max": [
+     1.8115,
+     0.493,
+     -0.204
+    ],
+    "triangles": 48,
+    "material": "carbon"
+   },
+   {
+    "node": "front_suspension__lower_front_r",
+    "pivot": [
+     1.95,
+     0.22,
+     -0.44
+    ],
+    "bbox_min": [
+     1.7889,
+     0.207,
+     -0.6967
+    ],
+    "bbox_max": [
+     2.1111,
+     0.233,
+     -0.1833
+    ],
+    "triangles": 48,
+    "material": "carbon"
+   },
+   {
+    "node": "front_suspension__lower_rear_r",
+    "pivot": [
+     1.65,
+     0.21,
+     -0.45
+    ],
+    "bbox_min": [
+     1.489,
+     0.187,
+     -0.6969
+    ],
+    "bbox_max": [
+     1.811,
+     0.233,
+     -0.2031
+    ],
+    "triangles": 48,
+    "material": "carbon"
+   },
+   {
+    "node": "front_suspension__pushrod_r",
+    "pivot": [
+     1.76,
+     0.365,
+     -0.43
+    ],
+    "bbox_min": [
+     1.7091,
+     0.2204,
+     -0.6754
+    ],
+    "bbox_max": [
+     1.8109,
+     0.5096,
+     -0.1846
+    ],
+    "triangles": 48,
+    "material": "titanium"
+   },
+   {
+    "node": "front_suspension__track_rod_r",
+    "pivot": [
+     1.94,
+     0.31,
+     -0.435
+    ],
+    "bbox_min": [
+     1.931,
+     0.301,
+     -0.68
+    ],
+    "bbox_max": [
+     1.949,
+     0.319,
+     -0.19
+    ],
+    "triangles": 48,
+    "material": "carbon"
+   }
+  ],
+  "rear_tyres": [
+   {
+    "node": "rear_tyres__tyre_l",
+    "pivot": [
+     -1.8,
+     0.36,
+     0.8
+    ],
+    "bbox_min": [
+     -2.16,
+     0.0,
+     0.6
+    ],
+    "bbox_max": [
+     -1.44,
+     0.72,
+     1.0
+    ],
+    "triangles": 4032,
+    "material": "rubber"
+   },
+   {
+    "node": "rear_tyres__rim_l",
+    "pivot": [
+     -1.8,
+     0.36,
+     0.8
+    ],
+    "bbox_min": [
+     -2.035,
+     0.125,
+     0.61
+    ],
+    "bbox_max": [
+     -1.565,
+     0.595,
+     0.99
+    ],
+    "triangles": 1536,
+    "material": "rim"
+   },
+   {
+    "node": "rear_tyres__face_l",
+    "pivot": [
+     -1.8,
+     0.36,
+     0.8
+    ],
+    "bbox_min": [
+     -2.02,
+     0.14,
+     0.958
+    ],
+    "bbox_max": [
+     -1.58,
+     0.58,
+     0.97
+    ],
+    "triangles": 192,
+    "material": "carbon"
+   },
+   {
+    "node": "rear_tyres__nut_l",
+    "pivot": [
+     -1.8,
+     0.36,
+     0.8
+    ],
+    "bbox_min": [
+     -1.85,
+     0.31,
+     0.965
+    ],
+    "bbox_max": [
+     -1.75,
+     0.41,
+     0.995
+    ],
+    "triangles": 192,
+    "material": "cyan"
+   },
+   {
+    "node": "rear_tyres__tyre_r",
+    "pivot": [
+     -1.8,
+     0.36,
+     -0.8
+    ],
+    "bbox_min": [
+     -2.16,
+     0.0,
+     -1.0
+    ],
+    "bbox_max": [
+     -1.44,
+     0.72,
+     -0.6
+    ],
+    "triangles": 4032,
+    "material": "rubber"
+   },
+   {
+    "node": "rear_tyres__rim_r",
+    "pivot": [
+     -1.8,
+     0.36,
+     -0.8
+    ],
+    "bbox_min": [
+     -2.035,
+     0.125,
+     -0.99
+    ],
+    "bbox_max": [
+     -1.565,
+     0.595,
+     -0.61
+    ],
+    "triangles": 1536,
+    "material": "rim"
+   },
+   {
+    "node": "rear_tyres__face_r",
+    "pivot": [
+     -1.8,
+     0.36,
+     -0.8
+    ],
+    "bbox_min": [
+     -2.02,
+     0.14,
+     -0.97
+    ],
+    "bbox_max": [
+     -1.58,
+     0.58,
+     -0.958
+    ],
+    "triangles": 192,
+    "material": "carbon"
+   },
+   {
+    "node": "rear_tyres__nut_r",
+    "pivot": [
+     -1.8,
+     0.36,
+     -0.8
+    ],
+    "bbox_min": [
+     -1.85,
+     0.31,
+     -0.995
+    ],
+    "bbox_max": [
+     -1.75,
+     0.41,
+     -0.965
+    ],
+    "triangles": 192,
+    "material": "cyan"
+   }
+  ],
+  "rear_brakes": [
+   {
+    "node": "rear_brakes__disc_l",
+    "pivot": [
+     -1.8,
+     0.36,
+     0.73
+    ],
+    "bbox_min": [
+     -1.965,
+     0.195,
+     0.714
+    ],
+    "bbox_max": [
+     -1.635,
+     0.525,
+     0.746
+    ],
+    "triangles": 192,
+    "material": "disc"
+   },
+   {
+    "node": "rear_brakes__caliper_l",
+    "pivot": [
+     -1.86,
+     0.51,
+     0.695
+    ],
+    "bbox_min": [
+     -1.9358,
+     0.4463,
+     0.665
+    ],
+    "bbox_max": [
+     -1.7842,
+     0.5737,
+     0.725
+    ],
+    "triangles": 12,
+    "material": "caliper"
+   },
+   {
+    "node": "rear_brakes__disc_r",
+    "pivot": [
+     -1.8,
+     0.36,
+     -0.73
+    ],
+    "bbox_min": [
+     -1.965,
+     0.195,
+     -0.746
+    ],
+    "bbox_max": [
+     -1.635,
+     0.525,
+     -0.714
+    ],
+    "triangles": 192,
+    "material": "disc"
+   },
+   {
+    "node": "rear_brakes__caliper_r",
+    "pivot": [
+     -1.86,
+     0.51,
+     -0.695
+    ],
+    "bbox_min": [
+     -1.9358,
+     0.4463,
+     -0.725
+    ],
+    "bbox_max": [
+     -1.7842,
+     0.5737,
+     -0.665
+    ],
+    "triangles": 12,
+    "material": "caliper"
+   }
+  ],
+  "rear_suspension": [
+   {
+    "node": "rear_suspension__upright_l",
+    "pivot": [
+     -1.8,
+     0.36,
+     0.66
+    ],
+    "bbox_min": [
+     -1.845,
+     0.225,
+     0.635
+    ],
+    "bbox_max": [
+     -1.755,
+     0.495,
+     0.685
+    ],
+    "triangles": 12,
+    "material": "titanium"
+   },
+   {
+    "node": "rear_suspension__upper_front_l",
+    "pivot": [
+     -1.675,
+     0.46,
+     0.39
+    ],
+    "bbox_min": [
+     -1.8117,
+     0.427,
+     0.1243
+    ],
+    "bbox_max": [
+     -1.5383,
+     0.493,
+     0.6557
+    ],
+    "triangles": 48,
+    "material": "carbon"
+   },
+   {
+    "node": "rear_suspension__upper_rear_l",
+    "pivot": [
+     -1.91,
+     0.465,
+     0.4
+    ],
+    "bbox_min": [
+     -2.0319,
+     0.437,
+     0.1447
+    ],
+    "bbox_max": [
+     -1.7881,
+     0.493,
+     0.6553
+    ],
+    "triangles": 48,
+    "material": "carbon"
+   },
+   {
+    "node": "rear_suspension__lower_front_l",
+    "pivot": [
+     -1.65,
+     0.22,
+     0.39
+    ],
+    "bbox_min": [
+     -1.8113,
+     0.207,
+     0.1235
+    ],
+    "bbox_max": [
+     -1.4887,
+     0.233,
+     0.6565
+    ],
+    "triangles": 48,
+    "material": "carbon"
+   },
+   {
+    "node": "rear_suspension__lower_rear_l",
+    "pivot": [
+     -1.935,
+     0.21,
+     0.4
+    ],
+    "bbox_min": [
+     -2.0814,
+     0.187,
+     0.1438
+    ],
+    "bbox_max": [
+     -1.7886,
+     0.233,
+     0.6562
+    ],
+    "triangles": 48,
+    "material": "carbon"
+   },
+   {
+    "node": "rear_suspension__pullrod_l",
+    "pivot": [
+     -1.76,
+     0.345,
+     0.38
+    ],
+    "bbox_min": [
+     -1.8307,
+     0.2102,
+     0.1248
+    ],
+    "bbox_max": [
+     -1.6893,
+     0.4798,
+     0.6352
+    ],
+    "triangles": 48,
+    "material": "titanium"
+   },
+   {
+    "node": "rear_suspension__driveshaft_l",
+    "pivot": [
+     -1.8,
+     0.345,
+     0.37
+    ],
+    "bbox_min": [
+     -1.822,
+     0.3081,
+     0.1187
+    ],
+    "bbox_max": [
+     -1.778,
+     0.3819,
+     0.6213
+    ],
+    "triangles": 48,
+    "material": "engine"
+   },
+   {
+    "node": "rear_suspension__upright_r",
+    "pivot": [
+     -1.8,
+     0.36,
+     -0.66
+    ],
+    "bbox_min": [
+     -1.845,
+     0.225,
+     -0.685
+    ],
+    "bbox_max": [
+     -1.755,
+     0.495,
+     -0.635
+    ],
+    "triangles": 12,
+    "material": "titanium"
+   },
+   {
+    "node": "rear_suspension__upper_front_r",
+    "pivot": [
+     -1.675,
+     0.46,
+     -0.39
+    ],
+    "bbox_min": [
+     -1.8117,
+     0.427,
+     -0.6557
+    ],
+    "bbox_max": [
+     -1.5383,
+     0.493,
+     -0.1243
+    ],
+    "triangles": 48,
+    "material": "carbon"
+   },
+   {
+    "node": "rear_suspension__upper_rear_r",
+    "pivot": [
+     -1.91,
+     0.465,
+     -0.4
+    ],
+    "bbox_min": [
+     -2.0319,
+     0.437,
+     -0.6553
+    ],
+    "bbox_max": [
+     -1.7881,
+     0.493,
+     -0.1447
+    ],
+    "triangles": 48,
+    "material": "carbon"
+   },
+   {
+    "node": "rear_suspension__lower_front_r",
+    "pivot": [
+     -1.65,
+     0.22,
+     -0.39
+    ],
+    "bbox_min": [
+     -1.8113,
+     0.207,
+     -0.6565
+    ],
+    "bbox_max": [
+     -1.4887,
+     0.233,
+     -0.1235
+    ],
+    "triangles": 48,
+    "material": "carbon"
+   },
+   {
+    "node": "rear_suspension__lower_rear_r",
+    "pivot": [
+     -1.935,
+     0.21,
+     -0.4
+    ],
+    "bbox_min": [
+     -2.0814,
+     0.187,
+     -0.6562
+    ],
+    "bbox_max": [
+     -1.7886,
+     0.233,
+     -0.1438
+    ],
+    "triangles": 48,
+    "material": "carbon"
+   },
+   {
+    "node": "rear_suspension__pullrod_r",
+    "pivot": [
+     -1.76,
+     0.345,
+     -0.38
+    ],
+    "bbox_min": [
+     -1.8307,
+     0.2102,
+     -0.6352
+    ],
+    "bbox_max": [
+     -1.6893,
+     0.4798,
+     -0.1248
+    ],
+    "triangles": 48,
+    "material": "titanium"
+   },
+   {
+    "node": "rear_suspension__driveshaft_r",
+    "pivot": [
+     -1.8,
+     0.345,
+     -0.37
+    ],
+    "bbox_min": [
+     -1.822,
+     0.3081,
+     -0.6213
+    ],
+    "bbox_max": [
+     -1.778,
+     0.3819,
+     -0.1187
+    ],
+    "triangles": 48,
+    "material": "engine"
+   }
+  ]
+ }
+}
