@@ -79,3 +79,9 @@ def test_ai_global_rate_limit_cannot_be_bypassed_with_spoofed_ips(client, monkey
     codes = [client.post("/api/v1/ai/ask", json={"question": "What does the floor do?"},
                          headers={"X-Forwarded-For": f"10.0.0.{i}"}).status_code for i in range(5)]
     assert codes[:3] == [200, 200, 200] and codes[3:] == [429, 429]
+
+
+def test_root_and_health_answer_get_and_head(client):
+    assert client.get("/").json()["docs"] == "/docs"
+    assert client.head("/").status_code == 200
+    assert client.head("/health").status_code == 200

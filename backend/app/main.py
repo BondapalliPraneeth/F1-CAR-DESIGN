@@ -54,9 +54,15 @@ async def validation_handler(_: Request, exc: RequestValidationError) -> JSONRes
     return JSONResponse(status_code=422, content={"error": "validation_error", "details": errors})
 
 
-@app.get("/health")
+@app.api_route("/health", methods=["GET", "HEAD"])
 def health() -> dict:
     return {"status": "ok", "model_version": MODEL_VERSION}
+
+
+@app.api_route("/", methods=["GET", "HEAD"], include_in_schema=False)
+def root() -> dict:
+    # Visiting the API host directly (or a platform probe of "/") should not look like an error.
+    return {"service": "ApexVision 3D API", "status": "ok", "docs": "/docs", "health": "/health", "api": "/api/v1"}
 
 
 for r in (car.router, simulation.router, ai_reports.router):
