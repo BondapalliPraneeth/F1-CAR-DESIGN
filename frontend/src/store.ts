@@ -3,7 +3,7 @@ import { api, ApiError } from "./lib/api";
 import type { Assumptions, CarInfo, ComponentSummary, DamageInput, HistoryItem, SimulationResult } from "./lib/types";
 import { getSessionId } from "./lib/utils";
 
-export type CameraPreset = "front" | "rear" | "side" | "top" | "iso";
+export type CameraPreset = "iso" | "front" | "rear" | "left" | "right" | "top";
 export type BottomTab = "dashboard" | "assistant" | "assumptions" | "history";
 
 export interface DamageEntry {
@@ -24,6 +24,7 @@ interface State {
   explode: number;
   xray: boolean;
   autoRotate: boolean;
+  followCursor: boolean;
   camera: { preset: CameraPreset; nonce: number };
   screenshotNonce: number;
   bottomTab: BottomTab;
@@ -50,6 +51,8 @@ interface State {
   setExplode: (v: number) => void;
   setXray: (v: boolean) => void;
   setAutoRotate: (v: boolean) => void;
+  setFollowCursor: (v: boolean) => void;
+  resetView: () => void;
   setCamera: (p: CameraPreset) => void;
   takeScreenshot: () => void;
   setBottomTab: (t: BottomTab) => void;
@@ -102,6 +105,7 @@ export const useStore = create<State>((set, get) => ({
   explode: 0,
   xray: false,
   autoRotate: false,
+  followCursor: !(typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches),
   camera: { preset: "iso", nonce: 0 },
   screenshotNonce: 0,
   bottomTab: "dashboard",
@@ -142,6 +146,8 @@ export const useStore = create<State>((set, get) => ({
   setExplode: (v) => set({ explode: v }),
   setXray: (v) => set({ xray: v }),
   setAutoRotate: (v) => set({ autoRotate: v }),
+  setFollowCursor: (v) => set({ followCursor: v }),
+  resetView: () => set((s) => ({ explode: 0, xray: false, hidden: {}, isolatedId: null, camera: { preset: "iso", nonce: s.camera.nonce + 1 } })),
   setCamera: (p) => set((s) => ({ camera: { preset: p, nonce: s.camera.nonce + 1 } })),
   takeScreenshot: () => set((s) => ({ screenshotNonce: s.screenshotNonce + 1 })),
   setBottomTab: (t) => set({ bottomTab: t }),

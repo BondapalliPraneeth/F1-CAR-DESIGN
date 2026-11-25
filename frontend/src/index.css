@@ -14,17 +14,17 @@ body,
 
 body {
   margin: 0;
-  background: #090d14;
-  color: #e6ebf2;
+  background: #07080c;
+  color: #eceef2;
   font-family: Inter, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
 * {
   scrollbar-width: thin;
-  scrollbar-color: #232e40 transparent;
+  scrollbar-color: #262a35 transparent;
 }
 
 select option {
-  background: #151d2b;
+  background: #161921;
 }

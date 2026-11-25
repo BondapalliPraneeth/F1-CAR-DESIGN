@@ -3,6 +3,7 @@ import { useMemo, useState } from "react";
 import { classifySeverity, LEVEL_COLOR, LEVEL_LABEL } from "@/lib/severity";
 import { cn } from "@/lib/utils";
 import { useStore } from "@/store";
+import { componentIcon } from "./componentIcons";
 
 const CATEGORY_ORDER = ["aerodynamic", "structural", "thermal", "powertrain", "mechanical"];
 
@@ -33,7 +34,9 @@ export function ComponentNav() {
     <nav className="flex h-full flex-col" aria-label="Components">
       <div className="border-b border-line p-3">
         <div className="mb-2 flex items-center justify-between">
-          <h2 className="text-xs font-semibold uppercase tracking-wide text-ink-2">Components ({components.length})</h2>
+          <h2 className="text-sm font-semibold text-ink">
+            Car Components <span className="font-normal text-ink-3">({components.length})</span>
+          </h2>
           {anyHidden && (
             <button className="text-[11px] text-accent hover:underline" onClick={showAll}>
               Show all
@@ -60,16 +63,25 @@ export function ComponentNav() {
                 const sev = damage[c.id]?.severity ?? 0;
                 const level = classifySeverity(sev);
                 const isHidden = !!hidden[c.id] || (isolatedId !== null && isolatedId !== c.id);
+                const Icon = componentIcon(c.id, c.category);
+                const sel = selectedId === c.id;
                 return (
-                  <li key={c.id}>
+                  <li key={c.id} className="mb-0.5">
                     <div
                       className={cn(
-                        "group flex items-center gap-2 rounded-md px-2 py-1.5 text-xs transition-colors",
-                        selectedId === c.id ? "bg-accent/15 text-ink" : hoveredId === c.id ? "bg-panel2 text-ink" : "text-ink-2 hover:bg-panel2",
+                        "group flex items-center gap-2 rounded-lg border px-2 py-1.5 text-xs transition-colors",
+                        sel
+                          ? "border-accent/60 bg-gradient-to-r from-accent/35 via-accent/10 to-transparent text-ink shadow-[inset_3px_0_0_#ef3b2d]"
+                          : hoveredId === c.id
+                            ? "border-line bg-panel2 text-ink"
+                            : "border-transparent text-ink-2 hover:bg-panel2",
                       )}
                       onMouseEnter={() => hover(c.id)}
                       onMouseLeave={() => hover(null)}
                     >
+                      <span className={cn("grid size-7 shrink-0 place-items-center rounded-md border", sel ? "border-accent/50 bg-accent/20 text-white" : "border-line bg-panel2 text-ink-3")} aria-hidden>
+                        <Icon className="size-3.5" />
+                      </span>
                       <span
                         className="size-2 shrink-0 rounded-full"
                         style={{ background: LEVEL_COLOR[level] }}

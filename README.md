@@ -17,7 +17,8 @@ You can:
 
 | Area | What you get |
 |---|---|
-| 3D viewer | Procedural GLB with 20 selectable components; hover tooltips; exploded view; isolate, hide and show all; X-ray; front, rear, side, top and iso camera presets; auto-rotate; PNG screenshot |
+| 3D viewer | Procedural GLB with 20 selectable components in an original black and red showroom livery on a lit turntable; the car turns gently to follow the cursor (toggle; off when the OS asks for reduced motion); hover tooltips; exploded view; isolate, hide and show all; X-ray; perspective, front, rear, left, right and top camera presets; auto-rotate; PNG screenshot; fullscreen; one-click view reset. Browsers without GPU acceleration get a lighter scene automatically |
+| Overview row | Vehicle performance card, three mini charts (downforce vs speed, tyre grip over the stint, brake temperature over a lap) and a Simulate Damage card: pick a component, damage type and level, see the backend severity-sweep estimate, then apply it to run the full simulation |
 | Engineering panels | For each component: position, purpose, construction, performance share, failure modes, model parameters, related parts, and a specialised analysis table (front wing, rear wing, floor, cooling, tyres, brakes, suspension, power unit, structural) with baseline, current and Δ |
 | Damage | Damage type plus a 0–100% slider (levels: healthy, minor, moderate, severe, critical); 11 preset scenarios including a combined lap-one incident; per-damage mechanism explanations; visual damage on the model |
 | Simulation | Component-resolved aero (ride height, DRS, balance), tyre grip model, brake and coolant thermal ODEs with fade and power derate, quasi-steady lap simulation on an invented 5.18 km circuit, severity sweeps |
@@ -89,7 +90,7 @@ through, so it is never written to a file.
 ## Tests
 
 ```bash
-cd backend && .venv/Scripts/python -m pytest -q && .venv/Scripts/python -m ruff check .   # 49 tests
+cd backend && .venv/Scripts/python -m pytest -q && .venv/Scripts/python -m ruff check .   # 50 tests
 cd frontend && npm run typecheck && npm test                                              # 17 unit tests
 cd frontend && npx playwright install chromium && npm run test:e2e                        # 8 end-to-end tests
 ```

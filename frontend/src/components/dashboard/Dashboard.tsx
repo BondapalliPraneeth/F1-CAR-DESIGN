@@ -58,7 +58,7 @@ export default function Dashboard() {
         name: "Baseline",
         x: ["Front axle", "Rear axle"],
         y: [c.balance.baseline.front_pct, c.balance.baseline.rear_pct],
-        marker: { color: SERIES.baseline, line: { color: "#0f1520", width: 2 } },
+        marker: { color: SERIES.baseline, line: { color: "#0e1016", width: 2 } },
         hovertemplate: "Baseline %{x}: %{y:.1f}%<extra></extra>",
       },
       {
@@ -66,7 +66,7 @@ export default function Dashboard() {
         name: "Current",
         x: ["Front axle", "Rear axle"],
         y: [c.balance.current.front_pct, c.balance.current.rear_pct],
-        marker: { color: SERIES.current, line: { color: "#0f1520", width: 2 } },
+        marker: { color: SERIES.current, line: { color: "#0e1016", width: 2 } },
         hovertemplate: "Current %{x}: %{y:.1f}%<extra></extra>",
       },
     ];
@@ -105,7 +105,7 @@ export default function Dashboard() {
         name: "Lap time loss",
         x: impact.map((d) => d.delta_lap_s),
         y: impact.map((d) => `${nameOf(d.component_id)} (${d.severity}%)`),
-        marker: { color: SERIES.current, line: { color: "#0f1520", width: 2 } },
+        marker: { color: SERIES.current, line: { color: "#0e1016", width: 2 } },
         hovertemplate: "%{y}: %{x:+.3f} s<extra></extra>",
       },
     ];
@@ -124,7 +124,7 @@ export default function Dashboard() {
         name: "Health",
         x: health.map((h) => h.health_pct),
         y: health.map((h) => h.name),
-        marker: { color: health.map((h) => LEVEL_COLOR[h.level]), line: { color: "#0f1520", width: 1 } },
+        marker: { color: health.map((h) => LEVEL_COLOR[h.level]), line: { color: "#0e1016", width: 1 } },
         customdata: health.map((h) => LEVEL_LABEL[h.level]),
         hovertemplate: "%{y}: %{x:.0f}% health (%{customdata})<extra></extra>",
       },

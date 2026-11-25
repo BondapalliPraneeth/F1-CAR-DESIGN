@@ -3,7 +3,7 @@ import { Table2 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { cn, fmt } from "@/lib/utils";
 
-/** Validated chart palette for the dark surface (#0f1520). Text never wears series colours. */
+/** Validated chart palette for the dark surface (#0e1016). Text never wears series colours. */
 export const SERIES = {
   baseline: "#3987e5",
   current: "#d95926",
@@ -47,11 +47,24 @@ export function PlotlyChart({
   digits?: number;
 }) {
   const el = useRef<HTMLDivElement>(null);
+  const fig = useRef<HTMLElement>(null);
+  const drawn = useRef(false);
   const [showTable, setShowTable] = useState(false);
+  // Off-screen charts draw once, then defer redraws until they scroll into view (Plotly layout is expensive).
+  const [onScreen, setOnScreen] = useState(true);
+  useEffect(() => {
+    const f = fig.current;
+    if (!f || typeof IntersectionObserver === "undefined") return;
+    const io = new IntersectionObserver(([e]) => setOnScreen(e.isIntersecting), { rootMargin: "200px" });
+    io.observe(f);
+    return () => io.disconnect();
+  }, []);
 
   useEffect(() => {
     const div = el.current;
     if (!div || showTable) return;
+    if (drawn.current && !onScreen && div.childElementCount > 0) return; // redraw later, when visible
+    drawn.current = true;
     const base = baseLayout(xTitle, yTitle);
     const merged: Partial<Plotly.Layout> = {
       ...base,
@@ -63,7 +76,7 @@ export function PlotlyChart({
       showlegend: traces.length > 1 && (layout?.showlegend ?? true),
     };
     void Plotly.react(div, traces as Plotly.Data[], merged, { displayModeBar: false, responsive: true });
-  }, [traces, xTitle, yTitle, layout, height, showTable]);
+  }, [traces, xTitle, yTitle, layout, height, showTable, onScreen]);
 
   useEffect(() => {
     const div = el.current;
@@ -73,7 +86,7 @@ export function PlotlyChart({
   }, []);
 
   return (
-    <figure className="rounded-lg border border-line bg-panel p-3" data-testid={testId}>
+    <figure ref={fig} className="rounded-lg border border-line bg-panel p-3" data-testid={testId}>
       <figcaption className="mb-1 flex items-start justify-between gap-2">
         <div>
           <div className="text-sm font-medium text-ink">{title}</div>

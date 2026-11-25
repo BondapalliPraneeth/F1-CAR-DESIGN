@@ -20,9 +20,21 @@ interface Part {
   baseTransparent: boolean;
 }
 
-const ACCENT = new THREE.Color("#16c7bd");
+const ACCENT = new THREE.Color("#ff4a3d");
 const tmpColor = new THREE.Color();
 const tmpVec = new THREE.Vector3();
+const hsl = { h: 0, s: 0, l: 0 };
+const LIVERY_RED = new THREE.Color("#d42a1e");
+const LIVERY_BODY = new THREE.Color("#1a1c22");
+
+/** Showroom livery: the GLB's teal accents become red and its navy bodywork becomes graphite. */
+function applyLivery(c: THREE.Color) {
+  c.getHSL(hsl);
+  if (hsl.s < 0.25) return;
+  const deg = hsl.h * 360;
+  if (deg >= 150 && deg < 200) c.copy(LIVERY_RED);
+  else if (deg >= 200 && deg < 260) c.copy(LIVERY_BODY);
+}
 
 export interface HoverInfo {
   component: string;
@@ -43,6 +55,7 @@ export function CarModel({ url, onHover }: { url: string; onHover: (h: HoverInfo
       if (!comp) return;
       const src = mesh.material as THREE.MeshStandardMaterial;
       const mat = src.clone();
+      applyLivery(mat.color);
       mesh.material = mat;
       mesh.castShadow = true;
       mesh.receiveShadow = true;

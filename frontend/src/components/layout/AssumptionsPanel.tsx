@@ -35,7 +35,7 @@ export function AssumptionsPanel() {
                 </span>
               </span>
               {typeof m.default === "boolean" ? (
-                <input type="checkbox" checked={Boolean(v)} onChange={(e) => setAssumption(m.key, e.target.checked)} className="size-4 accent-[#16c7bd]" />
+                <input type="checkbox" checked={Boolean(v)} onChange={(e) => setAssumption(m.key, e.target.checked)} className="size-4 accent-[#ef3b2d]" />
               ) : (
                 <input
                   type="number"

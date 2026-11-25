@@ -4,12 +4,12 @@ export default {
   theme: {
     extend: {
       colors: {
-        bg: "#090d14",
-        panel: "#0f1520",
-        panel2: "#151d2b",
-        line: "#232e40",
-        ink: { DEFAULT: "#e6ebf2", 2: "#a3b0c2", 3: "#6b7a90" },
-        accent: { DEFAULT: "#16c7bd", strong: "#0fa39b" },
+        bg: "#07080c",
+        panel: "#0e1016",
+        panel2: "#161921",
+        line: "#262a35",
+        ink: { DEFAULT: "#eceef2", 2: "#a9afbc", 3: "#717887" },
+        accent: { DEFAULT: "#ef3b2d", strong: "#c92a1f" },
         sev: { healthy: "#22c55e", minor: "#facc15", moderate: "#f59e0b", severe: "#f97316", critical: "#ef4444" },
       },
       fontFamily: { sans: ["Inter", "system-ui", "sans-serif"], mono: ["JetBrains Mono", "ui-monospace", "monospace"] },
