@@ -19,19 +19,37 @@ from app.domain.components import COMPONENTS_BY_ID
 
 router = APIRouter(tags=["ai", "reports"])
 _hits: dict[str, deque] = defaultdict(deque)
+_global_hits: deque = deque()
+_MAX_TRACKED_CLIENTS = 10_000
+
+
+def _prune(q: deque, now: float) -> None:
+    while q and now - q[0] > 60:
+        q.popleft()
 
 
 def _rate_limit(request: Request) -> None:
-    """Simple per-IP sliding-window limit protecting the public demo's API key."""
-    limit = get_settings().ai_rate_limit_per_minute
-    ip = request.headers.get("x-forwarded-for", request.client.host if request.client else "unknown").split(",")[0].strip()
+    """Sliding-window limits protecting the public demo's API key.
+
+    The per-client limit keys on the first X-Forwarded-For entry, which a client can
+    spoof, so it only provides fairness. The global limit bounds total LLM usage
+    regardless of headers, and the client table is pruned so it cannot grow without bound.
+    """
+    s = get_settings()
     now = time.monotonic()
+    _prune(_global_hits, now)
+    if len(_global_hits) >= s.ai_global_rate_limit_per_minute:
+        raise HTTPException(status_code=429, detail={"error": "rate_limited", "message": "The assistant is busy. Please try again in a minute."})
+    ip = request.headers.get("x-forwarded-for", request.client.host if request.client else "unknown").split(",")[0].strip()[:64]
+    if len(_hits) > _MAX_TRACKED_CLIENTS:
+        for key in [k for k, v in _hits.items() if not v or now - v[-1] > 60]:
+            del _hits[key]
     q = _hits[ip]
-    while q and now - q[0] > 60:
-        q.popleft()
-    if len(q) >= limit:
-        raise HTTPException(status_code=429, detail={"error": "rate_limited", "message": f"Max {limit} questions per minute."})
+    _prune(q, now)
+    if len(q) >= s.ai_rate_limit_per_minute:
+        raise HTTPException(status_code=429, detail={"error": "rate_limited", "message": f"Max {s.ai_rate_limit_per_minute} questions per minute."})
     q.append(now)
+    _global_hits.append(now)
 
 
 @router.post("/ai/ask", response_model=AskResponse)

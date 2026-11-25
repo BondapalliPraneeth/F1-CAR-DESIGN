@@ -40,3 +40,54 @@ def test_offline_answers_are_fully_verified():
         text, calls = offline.answer(q, c)
         assert text and calls
         assert verify_numbers(text, [x["result"] for x in calls], q) == [], (q, text)
+
+
+def test_offline_healthy_car_and_hint_text_are_verified():
+    # Regression: the "Try asking" hint once contained an example number that no tool returned.
+    for q in ["What is the current state of the car?", "hello", "What happens if the front wing is damaged?"]:
+        text, calls = offline.answer(q, ctx([]))
+        assert text and calls
+        assert verify_numbers(text, [x["result"] for x in calls], q) == [], (q, text)
+
+
+def _settings(**kw):
+    from app.core.config import Settings
+    base = {"gemini_api_key": None, "openai_api_key": None, "neon_ai_gateway_base_url": None,
+            "neon_ai_gateway_token": None, "ai_provider": "auto"}
+    return Settings(_env_file=None, **{**base, **kw})
+
+
+def test_neon_gateway_provider_resolution():
+    from app.ai.assistant import resolve_provider
+    gw = {"neon_ai_gateway_base_url": "https://gw.example", "neon_ai_gateway_token": "t"}
+    assert resolve_provider(_settings()) == "offline"
+    assert resolve_provider(_settings(**gw)) == "neon"
+    assert resolve_provider(_settings(gemini_api_key="k", **gw)) == "gemini"  # explicit provider keys win
+    assert resolve_provider(_settings(ai_provider="neon")) == "offline"  # neon requested but not configured
+
+
+def test_neon_gateway_request_shape_and_fallback(monkeypatch):
+    import httpx
+
+    from app.ai import assistant
+
+    seen = {}
+
+    def fake_post(self, url, headers=None, json=None):
+        seen.update(url=url, auth=headers["Authorization"], body=json)
+        return httpx.Response(403, json={"error": {"unavailable_reason": "paid_plan_required"}})
+
+    monkeypatch.setattr(httpx.Client, "post", fake_post)
+    s = _settings(neon_ai_gateway_base_url="https://gw.example/", neon_ai_gateway_token="tok", neon_ai_model="m1")
+    out = assistant.ask("What is the current state of the car?", ctx(), s)
+    assert seen["url"] == "https://gw.example/v1/chat/completions"
+    assert seen["auth"] == "Bearer tok"
+    assert seen["body"]["model"] == "m1" and "temperature" not in seen["body"] and seen["body"]["tools"]
+    # A gateway error (e.g. no AI credits yet) must still produce a verified offline answer.
+    assert out["provider"] == "offline" and out["notice"] and out["numeric_claims_verified"]
+
+
+def test_migrations_prefer_unpooled_url():
+    s = _settings(database_url="postgresql://u:p@pooler.example/db", database_url_unpooled="postgres://u:p@direct.example/db")
+    assert s.sqlalchemy_url == "postgresql+psycopg://u:p@pooler.example/db"
+    assert s.migration_url == "postgresql+psycopg://u:p@direct.example/db"

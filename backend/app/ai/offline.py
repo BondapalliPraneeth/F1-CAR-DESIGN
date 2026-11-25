@@ -175,7 +175,7 @@ def answer(question: str, ctx: ToolContext) -> tuple[str, list[dict]]:
            f"Overall health {st['overall_health_pct']:.1f}%.")
     if s["damaged_components"]:
         txt += " Damaged: " + ", ".join(f"{d['name']} ({d['severity_pct']:.0f}%)" for d in s["damaged_components"]) + "."
-    txt += ("\n\nTry asking: *What does the diffuser do?*, *What happens if I damage 30% of the front wing?*, "
+    txt += ("\n\nTry asking: *What does the diffuser do?*, *What happens if the front wing is damaged?*, "
             "*Which component contributes most to drag?* or *Which damaged component should be inspected first?*")
     return txt, calls
 

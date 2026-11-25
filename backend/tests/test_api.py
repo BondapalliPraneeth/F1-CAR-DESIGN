@@ -68,3 +68,14 @@ def test_csv_export(client):
     r = client.post("/api/v1/performance/export.csv", json={"damages": [FLOOR]})
     assert r.status_code == 200 and r.headers["content-type"].startswith("text/csv")
     assert "speed_current_kmh" in r.text and "MODEL-ESTIMATED" in r.text
+
+
+def test_ai_global_rate_limit_cannot_be_bypassed_with_spoofed_ips(client, monkeypatch):
+    from app.api.v1 import ai_reports
+    from app.core.config import get_settings
+
+    monkeypatch.setattr(get_settings(), "ai_global_rate_limit_per_minute", 3)
+    monkeypatch.setattr(ai_reports, "_global_hits", ai_reports.deque())
+    codes = [client.post("/api/v1/ai/ask", json={"question": "What does the floor do?"},
+                         headers={"X-Forwarded-For": f"10.0.0.{i}"}).status_code for i in range(5)]
+    assert codes[:3] == [200, 200, 200] and codes[3:] == [429, 429]

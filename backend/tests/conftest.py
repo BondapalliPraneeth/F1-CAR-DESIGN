@@ -7,6 +7,8 @@ os.environ["DATABASE_URL"] = f"sqlite:///{_DB}"
 os.environ["AI_PROVIDER"] = "offline"
 os.environ.pop("GEMINI_API_KEY", None)
 os.environ.pop("OPENAI_API_KEY", None)
+for _k in ("DATABASE_URL_UNPOOLED", "NEON_AI_GATEWAY_BASE_URL", "NEON_AI_GATEWAY_TOKEN"):
+    os.environ.pop(_k, None)
 
 import pytest  # noqa: E402
 from fastapi.testclient import TestClient  # noqa: E402

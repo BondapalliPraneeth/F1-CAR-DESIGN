@@ -9,6 +9,7 @@ export default defineConfig({
   plugins: [react()],
   resolve: { alias: { "@": path.resolve(__dirname, "src") } },
   server: { port: 5173, proxy: { "/api": backend, "/health": backend } },
+  preview: { port: 4173, proxy: { "/api": backend, "/health": backend } },
   build: {
     chunkSizeWarningLimit: 5000,
     rollupOptions: {

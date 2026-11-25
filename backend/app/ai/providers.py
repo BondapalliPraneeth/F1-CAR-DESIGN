@@ -66,17 +66,22 @@ def ask_gemini(question: str, ctx: ToolContext, api_key: str, model: str) -> tup
     raise ProviderError("Gemini exceeded the tool-calling step limit")
 
 
-def ask_openai(question: str, ctx: ToolContext, api_key: str, model: str) -> tuple[str, list[dict]]:
+def ask_openai(question: str, ctx: ToolContext, api_key: str, model: str, *,
+               base_url: str = "https://api.openai.com/v1", label: str = "OpenAI",
+               temperature: float | None = 0.2) -> tuple[str, list[dict]]:
+    """OpenAI-compatible chat completions with tool calling (OpenAI itself, or the Neon AI Gateway)."""
     tools = [{"type": "function", "function": {"name": n, "description": d, "parameters": s}} for n, (_, d, s) in TOOLS.items()]
     messages: list[dict[str, Any]] = [{"role": "system", "content": _system(ctx)}, {"role": "user", "content": question}]
     calls: list[dict] = []
     with httpx.Client(timeout=TIMEOUT) as client:
         for _ in range(MAX_STEPS):
-            resp = client.post("https://api.openai.com/v1/chat/completions",
-                               headers={"Authorization": f"Bearer {api_key}"},
-                               json={"model": model, "messages": messages, "tools": tools, "temperature": 0.2})
+            body: dict[str, Any] = {"model": model, "messages": messages, "tools": tools}
+            if temperature is not None:
+                body["temperature"] = temperature
+            resp = client.post(f"{base_url.rstrip('/')}/chat/completions",
+                               headers={"Authorization": f"Bearer {api_key}"}, json=body)
             if resp.status_code != 200:
-                raise ProviderError(f"OpenAI HTTP {resp.status_code}: {resp.text[:300]}")
+                raise ProviderError(f"{label} HTTP {resp.status_code}: {resp.text[:300]}")
             msg = resp.json()["choices"][0]["message"]
             tcs = msg.get("tool_calls") or []
             if not tcs:
@@ -87,4 +92,11 @@ def ask_openai(question: str, ctx: ToolContext, api_key: str, model: str) -> tup
                 result = run_tool(ctx, tc["function"]["name"], args)
                 calls.append({"tool": tc["function"]["name"], "args": args, "result": result})
                 messages.append({"role": "tool", "tool_call_id": tc["id"], "content": json.dumps(result)})
-    raise ProviderError("OpenAI exceeded the tool-calling step limit")
+    raise ProviderError(f"{label} exceeded the tool-calling step limit")
+
+
+def ask_neon(question: str, ctx: ToolContext, base_url: str, token: str, model: str) -> tuple[str, list[dict]]:
+    """Neon AI Gateway: the unified /v1 route is OpenAI chat-completions compatible for every catalog model."""
+    # Some catalog models (e.g. gpt-5 family) reject non-default temperatures, so leave it to the model.
+    return ask_openai(question, ctx, token, model, base_url=f"{base_url.rstrip('/')}/v1",
+                      label="Neon AI Gateway", temperature=None)

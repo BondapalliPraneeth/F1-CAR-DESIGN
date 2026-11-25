@@ -89,7 +89,7 @@ through, so it is never written to a file.
 ## Tests
 
 ```bash
-cd backend && .venv/Scripts/python -m pytest -q && .venv/Scripts/python -m ruff check .   # 44 tests
+cd backend && .venv/Scripts/python -m pytest -q && .venv/Scripts/python -m ruff check .   # 49 tests
 cd frontend && npm run typecheck && npm test                                              # 17 unit tests
 cd frontend && npx playwright install chromium && npm run test:e2e                        # 8 end-to-end tests
 ```
@@ -120,10 +120,13 @@ The e2e run starts its own backend (SQLite, offline AI) and Vite dev server. Git
 |---|---|---|---|
 | `DATABASE_URL` | backend | `sqlite:///./apexvision.db` | `postgres://` and `postgresql://` URLs are normalised to psycopg |
 | `CORS_ORIGINS` | backend | `http://localhost:5173,…` | Comma-separated list |
-| `AI_PROVIDER` | backend | `auto` | `auto`, `gemini`, `openai` or `offline` |
+| `DATABASE_URL_UNPOOLED` | backend | unset | Neon direct connection, used only for migrations |
+| `AI_PROVIDER` | backend | `auto` | `auto`, `gemini`, `openai`, `neon` or `offline` |
+| `NEON_AI_GATEWAY_BASE_URL` / `NEON_AI_GATEWAY_TOKEN` / `NEON_AI_MODEL` | backend | unset / unset / `claude-haiku-4-5` | Neon AI Gateway (secret token). Needs prepaid Neon AI credits |
 | `GEMINI_API_KEY` / `GEMINI_MODEL` | backend | unset / `gemini-2.5-flash` | Secret |
 | `OPENAI_API_KEY` / `OPENAI_MODEL` | backend | unset / `gpt-4o-mini` | Secret |
-| `AI_RATE_LIMIT_PER_MINUTE` | backend | `12` | Per client |
+| `AI_RATE_LIMIT_PER_MINUTE` | backend | `12` | Per client IP |
+| `AI_GLOBAL_RATE_LIMIT_PER_MINUTE` | backend | `60` | Across all clients; caps LLM spend even if client IPs are spoofed |
 | `VITE_API_BASE_URL` | frontend build | empty (same origin) | Backend URL |
 
 No credentials are committed. `.env*` files are git-ignored except `.env.example`, and API keys stay on the server.
