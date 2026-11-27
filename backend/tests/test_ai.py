@@ -52,7 +52,7 @@ def test_offline_healthy_car_and_hint_text_are_verified():
 
 def _settings(**kw):
     from app.core.config import Settings
-    base = {"gemini_api_key": None, "openai_api_key": None, "neon_ai_gateway_base_url": None,
+    base = {"gemini_api_key": None, "openai_api_key": None, "groq_api_key": None, "neon_ai_gateway_base_url": None,
             "neon_ai_gateway_token": None, "ai_provider": "auto"}
     return Settings(_env_file=None, **{**base, **kw})
 
@@ -84,6 +84,33 @@ def test_neon_gateway_request_shape_and_fallback(monkeypatch):
     assert seen["auth"] == "Bearer tok"
     assert seen["body"]["model"] == "m1" and "temperature" not in seen["body"] and seen["body"]["tools"]
     # A gateway error (e.g. no AI credits yet) must still produce a verified offline answer.
+    assert out["provider"] == "offline" and out["notice"] and out["numeric_claims_verified"]
+
+
+def test_groq_provider_resolution():
+    from app.ai.assistant import resolve_provider
+    assert resolve_provider(_settings(groq_api_key="k")) == "groq"
+    assert resolve_provider(_settings(ai_provider="groq")) == "offline"  # requested but no key
+    assert resolve_provider(_settings(ai_provider="groq", groq_api_key="k", openai_api_key="o")) == "groq"
+
+
+def test_groq_request_shape_and_fallback(monkeypatch):
+    import httpx
+
+    from app.ai import assistant
+
+    seen = {}
+
+    def fake_post(self, url, headers=None, json=None):
+        seen.update(url=url, auth=headers["Authorization"], body=json)
+        return httpx.Response(401, json={"error": {"message": "invalid api key"}})
+
+    monkeypatch.setattr(httpx.Client, "post", fake_post)
+    s = _settings(groq_api_key="gsk_test", groq_model="llama-test")
+    out = assistant.ask("What is the current state of the car?", ctx(), s)
+    assert seen["url"] == "https://api.groq.com/openai/v1/chat/completions"
+    assert seen["auth"] == "Bearer gsk_test"
+    assert seen["body"]["model"] == "llama-test" and seen["body"]["tools"]
     assert out["provider"] == "offline" and out["notice"] and out["numeric_claims_verified"]
 
 

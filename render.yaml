@@ -24,3 +24,5 @@ services:
         sync: false
       - key: OPENAI_API_KEY # optional
         sync: false
+      - key: GROQ_API_KEY # optional, https://console.groq.com/keys
+        sync: false

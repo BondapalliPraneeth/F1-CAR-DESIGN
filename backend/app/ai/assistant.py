@@ -3,14 +3,14 @@ from __future__ import annotations
 import logging
 
 from app.ai import offline
-from app.ai.providers import ProviderError, ask_gemini, ask_neon, ask_openai
+from app.ai.providers import ProviderError, ask_gemini, ask_groq, ask_neon, ask_openai
 from app.ai.tools import ToolContext
 from app.ai.verify import verify_numbers
 from app.core.config import Settings
 
 log = logging.getLogger(__name__)
 
-LLM_PROVIDERS = ("gemini", "openai", "neon")
+LLM_PROVIDERS = ("gemini", "openai", "groq", "neon")
 
 
 def _configured(settings: Settings, provider: str) -> bool:
@@ -18,6 +18,8 @@ def _configured(settings: Settings, provider: str) -> bool:
         return bool(settings.gemini_api_key)
     if provider == "openai":
         return bool(settings.openai_api_key)
+    if provider == "groq":
+        return bool(settings.groq_api_key)
     if provider == "neon":
         return bool(settings.neon_ai_gateway_base_url and settings.neon_ai_gateway_token)
     return provider == "offline"
@@ -38,6 +40,8 @@ def ask(question: str, ctx: ToolContext, settings: Settings) -> dict:
             text, calls = ask_gemini(question, ctx, settings.gemini_api_key or "", settings.gemini_model)
         elif provider == "openai":
             text, calls = ask_openai(question, ctx, settings.openai_api_key or "", settings.openai_model)
+        elif provider == "groq":
+            text, calls = ask_groq(question, ctx, settings.groq_api_key or "", settings.groq_model)
         elif provider == "neon":
             text, calls = ask_neon(question, ctx, settings.neon_ai_gateway_base_url or "",
                                    settings.neon_ai_gateway_token or "", settings.neon_ai_model)

@@ -100,3 +100,8 @@ def ask_neon(question: str, ctx: ToolContext, base_url: str, token: str, model: 
     # Some catalog models (e.g. gpt-5 family) reject non-default temperatures, so leave it to the model.
     return ask_openai(question, ctx, token, model, base_url=f"{base_url.rstrip('/')}/v1",
                       label="Neon AI Gateway", temperature=None)
+
+
+def ask_groq(question: str, ctx: ToolContext, api_key: str, model: str) -> tuple[str, list[dict]]:
+    """Groq: OpenAI-compatible chat completions with tool calling."""
+    return ask_openai(question, ctx, api_key, model, base_url="https://api.groq.com/openai/v1", label="Groq")

@@ -7,7 +7,7 @@ os.environ["DATABASE_URL"] = f"sqlite:///{_DB}"
 os.environ["AI_PROVIDER"] = "offline"
 os.environ.pop("GEMINI_API_KEY", None)
 os.environ.pop("OPENAI_API_KEY", None)
-for _k in ("DATABASE_URL_UNPOOLED", "NEON_AI_GATEWAY_BASE_URL", "NEON_AI_GATEWAY_TOKEN"):
+for _k in ("DATABASE_URL_UNPOOLED", "NEON_AI_GATEWAY_BASE_URL", "NEON_AI_GATEWAY_TOKEN", "GROQ_API_KEY"):
     os.environ.pop(_k, None)
 
 import pytest  # noqa: E402

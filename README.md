@@ -84,7 +84,7 @@ With no `.env`, the backend uses a local SQLite file and the offline AI engine.
 docker compose up --build        # Postgres 16 + backend :8000 + frontend :8080
 ```
 
-To enable the LLM assistant locally, export `GEMINI_API_KEY` or `OPENAI_API_KEY` in your shell first. Compose passes it
+To enable the LLM assistant locally, export `GEMINI_API_KEY`, `OPENAI_API_KEY` or `GROQ_API_KEY` in your shell first. Compose passes it
 through, so it is never written to a file.
 
 ## Tests
@@ -110,7 +110,7 @@ The e2e run starts its own backend (SQLite, offline AI) and Vite dev server. Git
    `backend/`, with a health check at `/health`. Set these secret environment variables in the Render dashboard (never in the repo):
    - `DATABASE_URL`: the Neon string. Migrations run automatically on start.
    - `CORS_ORIGINS`: your Vercel URL, for example `https://apexvision.vercel.app`.
-   - `GEMINI_API_KEY` or `OPENAI_API_KEY`: *optional*. Without one, the assistant uses the rule-based engine.
+   - `GEMINI_API_KEY`, `OPENAI_API_KEY` or `GROQ_API_KEY`: *optional*. Without one, the assistant uses the rule-based engine.
 3. **Vercel:** import the repository with **root directory `frontend`** (framework preset Vite). Set
    `VITE_API_BASE_URL` to the Render URL, for example `https://apexvision-api.onrender.com`. `vercel.json` handles the SPA
    rewrites and asset caching.
@@ -126,6 +126,7 @@ The e2e run starts its own backend (SQLite, offline AI) and Vite dev server. Git
 | `NEON_AI_GATEWAY_BASE_URL` / `NEON_AI_GATEWAY_TOKEN` / `NEON_AI_MODEL` | backend | unset / unset / `claude-haiku-4-5` | Neon AI Gateway (secret token). Needs prepaid Neon AI credits |
 | `GEMINI_API_KEY` / `GEMINI_MODEL` | backend | unset / `gemini-2.5-flash` | Secret |
 | `OPENAI_API_KEY` / `OPENAI_MODEL` | backend | unset / `gpt-4o-mini` | Secret |
+| `GROQ_API_KEY` / `GROQ_MODEL` | backend | unset / `llama-3.3-70b-versatile` | Secret |
 | `AI_RATE_LIMIT_PER_MINUTE` | backend | `12` | Per client IP |
 | `AI_GLOBAL_RATE_LIMIT_PER_MINUTE` | backend | `60` | Across all clients; caps LLM spend even if client IPs are spoofed |
 | `VITE_API_BASE_URL` | frontend build | empty (same origin) | Backend URL |

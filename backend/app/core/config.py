@@ -17,12 +17,15 @@ class Settings(BaseSettings):
     database_url_unpooled: str | None = None
     cors_origins: str = "http://localhost:5173,http://127.0.0.1:5173"
 
-    # AI assistant. provider: auto | gemini | openai | neon | offline
+    # AI assistant. provider: auto | gemini | openai | groq | neon | offline
     ai_provider: str = "auto"
     gemini_api_key: str | None = None
     gemini_model: str = "gemini-2.5-flash"
     openai_api_key: str | None = None
     openai_model: str = "gpt-4o-mini"
+    # Groq (OpenAI-compatible API, https://console.groq.com/keys)
+    groq_api_key: str | None = None
+    groq_model: str = "llama-3.3-70b-versatile"
     # Neon AI Gateway (OpenAI-compatible chat completions); vars are written by `neon deploy` / `neon env pull`.
     neon_ai_gateway_base_url: str | None = None
     neon_ai_gateway_token: str | None = None
