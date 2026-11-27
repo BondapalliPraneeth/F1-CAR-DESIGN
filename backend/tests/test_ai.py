@@ -118,3 +118,36 @@ def test_migrations_prefer_unpooled_url():
     s = _settings(database_url="postgresql://u:p@pooler.example/db", database_url_unpooled="postgres://u:p@direct.example/db")
     assert s.sqlalchemy_url == "postgresql+psycopg://u:p@pooler.example/db"
     assert s.migration_url == "postgresql+psycopg://u:p@direct.example/db"
+
+
+def test_verifier_accepts_space_grouped_thousands():
+    from app.ai.verify import verify_numbers
+    results = [{"downforce_n": 11963.2, "drag_n": 3899.1, "lap": 73.93}]
+    assert verify_numbers("Downforce 11" + chr(0x202F) + "963 N, drag 3" + chr(0x2009) + "899 N, lap 73.93 s", results) == []
+    assert verify_numbers("Downforce 77" + chr(0x202F) + "777 N", results) == ["77777"]
+
+
+def test_verifier_accepts_values_rounded_to_fewer_decimals():
+    from app.ai.verify import verify_numbers
+    results = [{"lap_delta_s": 0.638}]
+    assert verify_numbers("Lap time rises by +0.6 s (about 0.64 s)", results) == []
+    assert verify_numbers("Lap time rises by 0.9 s", results) == ["0.9"]
+
+
+def test_openai_compatible_retries_once_on_short_rate_limit(monkeypatch):
+    import httpx
+
+    from app.ai import assistant, providers
+
+    replies = [httpx.Response(429, headers={"retry-after": "1"}, json={"error": {"message": "TPM"}}),
+               httpx.Response(200, json={"choices": [{"message": {"role": "assistant", "content": "Healthy car."}}]})]
+    posts = []
+
+    def fake_post(self, url, headers=None, json=None):
+        posts.append(url)
+        return replies[len(posts) - 1]
+
+    monkeypatch.setattr(httpx.Client, "post", fake_post)
+    monkeypatch.setattr(providers.time, "sleep", lambda s: None)
+    out = assistant.ask("What is the current state of the car?", ctx(), _settings(groq_api_key="gsk_test"))
+    assert len(posts) == 2 and out["provider"] == "groq"

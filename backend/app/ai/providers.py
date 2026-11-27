@@ -7,15 +7,30 @@ inventing values, and app.ai.verify independently checks every number.
 from __future__ import annotations
 
 import json
+import time
 from typing import Any
 
 import httpx
 
 from app.ai.tools import TOOLS, ToolContext, run_tool
 
+MAX_RETRY_WAIT_S = 5.0
+
+
+def _short_retry_after(resp: httpx.Response) -> float | None:
+    """Seconds to wait before one retry, if this is a 429 that clears soon; otherwise None."""
+    if resp.status_code != 429:
+        return None
+    try:
+        wait = float(resp.headers.get("retry-after", ""))
+    except ValueError:
+        return None
+    return wait if 0 <= wait <= MAX_RETRY_WAIT_S else None
+
 SYSTEM_PROMPT = """You are the ApexVision 3D engineering assistant: a senior race-car vehicle-performance and aerodynamics engineer.
 Rules (strict):
 1. Any number you state (forces, temperatures, lap times, percentages, balances) MUST come from a tool result in this conversation. Call tools first. Never estimate, recall or invent numerical values.
+   Quote tool values as given: do not derive new numbers from them (no subtracting, adding or "100 minus" arithmetic) and do not cite general real-world ranges.
 2. All values are MODEL-ESTIMATED from a simplified engineering model, not CFD, and not data from any real F1 car. Say so when quoting numbers.
 3. If a tool cannot answer, say what is unknown instead of guessing.
 4. Explain mechanisms physically (pressure, load, balance, thermal), concisely, for an engineering audience. Use markdown, max ~220 words.
@@ -78,8 +93,12 @@ def ask_openai(question: str, ctx: ToolContext, api_key: str, model: str, *,
             body: dict[str, Any] = {"model": model, "messages": messages, "tools": tools}
             if temperature is not None:
                 body["temperature"] = temperature
-            resp = client.post(f"{base_url.rstrip('/')}/chat/completions",
-                               headers={"Authorization": f"Bearer {api_key}"}, json=body)
+            url, headers = f"{base_url.rstrip('/')}/chat/completions", {"Authorization": f"Bearer {api_key}"}
+            resp = client.post(url, headers=headers, json=body)
+            wait = _short_retry_after(resp)
+            if wait is not None:  # brief per-minute rate limit (e.g. Groq free tier): wait once, then retry
+                time.sleep(wait)
+                resp = client.post(url, headers=headers, json=body)
             if resp.status_code != 200:
                 raise ProviderError(f"{label} HTTP {resp.status_code}: {resp.text[:300]}")
             msg = resp.json()["choices"][0]["message"]

@@ -128,7 +128,9 @@ def simulate_component_damage(ctx: ToolContext, component_id: str, damage_type: 
         "hypothetical_damage": {"component_id": component_id, "name": c.name, "damage_type": dt, "severity_pct": sev,
                                 "level": classify_severity(sev)},
         "note": "Hypothetical run: applied on top of the other current damages. Does not change the user's car.",
-        "result": hyp_s, "change_vs_current": _delta(cur_s, hyp_s), "change_vs_healthy": _delta(base_s, hyp_s),
+        # The "before" values are included so the model quotes them rather than recomputing them from the deltas.
+        "current": cur_s, "result": hyp_s,
+        "change_vs_current": _delta(cur_s, hyp_s), "change_vs_healthy": _delta(base_s, hyp_s),
         "mechanisms": [m["explanation"] for m in res.mechanisms if m["component_id"] == component_id],
         "warnings": res.warnings,
     }
