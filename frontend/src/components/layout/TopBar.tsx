@@ -83,7 +83,7 @@ export function TopBar() {
     },
     {
       id: "ai",
-      label: "AI Engineer",
+      label: "AI Assistant",
       icon: <Bot />,
       run: () => {
         setBottomTab("assistant");

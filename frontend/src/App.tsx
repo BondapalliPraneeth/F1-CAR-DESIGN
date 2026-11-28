@@ -100,7 +100,7 @@ export default function App() {
               <BarChart3 /> Performance dashboard
             </TabsTrigger>
             <TabsTrigger value="assistant">
-              <Bot /> AI engineer
+              <Bot /> AI Assistant
             </TabsTrigger>
             <TabsTrigger value="assumptions">
               <SlidersHorizontal /> Assumptions

@@ -69,7 +69,7 @@ test("save produces downloadable reports", async ({ page }) => {
 
 test("AI assistant answers offline with verified numbers", async ({ page }) => {
   await open(page);
-  await page.getByRole("tab", { name: /AI engineer/ }).click();
+  await page.getByRole("tab", { name: /AI Assistant/ }).click();
   await page.getByTestId("assistant-input").fill("What is the current state of the car?");
   await page.getByRole("button", { name: "Send question" }).click();
   const meta = page.getByTestId("assistant-meta");

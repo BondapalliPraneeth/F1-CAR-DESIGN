@@ -6,7 +6,7 @@ You can:
 - read what each component does
 - damage a component with a severity slider and see the damage represented on the model
 - see the effect on aerodynamics, tyres, brakes, cooling and lap time, computed by a Python engineering model
-- ask an AI engineer to explain the results
+- ask the AI Assistant to explain the results
 
 > **Honesty notice.** Every performance number is **MODEL-ESTIMATED**. It comes from a simplified engineering model that
 > is **not CFD** and is **not validated against any real car**. The car is not a model of any real team's car. The 3D damage
@@ -23,7 +23,7 @@ You can:
 | Damage | Damage type plus a 0–100% slider (levels: healthy, minor, moderate, severe, critical); 11 preset scenarios including a combined lap-one incident; per-damage mechanism explanations; visual damage on the model |
 | Simulation | Component-resolved aero (ride height, DRS, balance), tyre grip model, brake and coolant thermal ODEs with fade and power derate, quasi-steady lap simulation on an invented 5.18 km circuit, severity sweeps |
 | Dashboard | 13 Plotly charts: downforce and drag vs speed, balance, lap speed trace, brake temperature, coolant by lap, tyre grip, stint lap time, lap-time impact, severity sweep, component health. Each chart has a data-table view |
-| AI engineer | Gemini or OpenAI tool calling with 6 tools. Every number in an answer is verified against tool outputs. A built-in **rule-based engine works with no API key**, so the public demo needs no keys from visitors |
+| AI Assistant | Gemini, OpenAI or Groq tool calling with 6 tools. Every number in an answer is verified against tool outputs. A built-in **rule-based engine works with no API key**, so the public demo needs no keys from visitors |
 | Data | PostgreSQL (Neon) through SQLAlchemy and Alembic, with an SQLite fallback for zero-setup local runs. Stores sessions, simulations, damages and reports |
 | Reports | Markdown, printable HTML (save as PDF) and JSON reports; CSV export |
 | Assumptions | Every model assumption can be edited in the UI and through the API |
@@ -52,7 +52,7 @@ docs/                          methodology, component specs, 3D asset guide
 | POST | `/aerodynamics/calculate`, `/performance/analyse`, `/simulation/compare` | Focused calculations |
 | POST | `/performance/export.csv` | CSV of the current result |
 | GET | `/history?session_id=`, `/reports/{id}?format=json\|md\|html` | Saved runs and reports |
-| POST | `/ai/ask` | AI engineer (rate limited) |
+| POST | `/ai/ask` | AI Assistant (rate limited) |
 | GET | `/health` | Liveness check |
 
 Interactive docs are at `http://localhost:8000/docs`.
@@ -126,7 +126,7 @@ The e2e run starts its own backend (SQLite, offline AI) and Vite dev server. Git
 | `NEON_AI_GATEWAY_BASE_URL` / `NEON_AI_GATEWAY_TOKEN` / `NEON_AI_MODEL` | backend | unset / unset / `claude-haiku-4-5` | Neon AI Gateway (secret token). Needs prepaid Neon AI credits |
 | `GEMINI_API_KEY` / `GEMINI_MODEL` | backend | unset / `gemini-2.5-flash` | Secret |
 | `OPENAI_API_KEY` / `OPENAI_MODEL` | backend | unset / `gpt-4o-mini` | Secret |
-| `GROQ_API_KEY` / `GROQ_MODEL` | backend | unset / `llama-3.3-70b-versatile` | Secret |
+| `GROQ_API_KEY` / `GROQ_MODEL` / `GROQ_FALLBACK_MODEL` | backend | unset / `openai/gpt-oss-120b` / `openai/gpt-oss-20b` | Secret key. The fallback model is tried when the main one hits the free-tier tokens-per-minute limit |
 | `AI_RATE_LIMIT_PER_MINUTE` | backend | `12` | Per client IP |
 | `AI_GLOBAL_RATE_LIMIT_PER_MINUTE` | backend | `60` | Across all clients; caps LLM spend even if client IPs are spoofed |
 | `VITE_API_BASE_URL` | frontend build | empty (same origin) | Backend URL |

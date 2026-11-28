@@ -151,3 +151,22 @@ def test_openai_compatible_retries_once_on_short_rate_limit(monkeypatch):
     monkeypatch.setattr(providers.time, "sleep", lambda s: None)
     out = assistant.ask("What is the current state of the car?", ctx(), _settings(groq_api_key="gsk_test"))
     assert len(posts) == 2 and out["provider"] == "groq"
+
+
+def test_groq_falls_back_to_second_model_on_rate_limit(monkeypatch):
+    import httpx
+
+    from app.ai import assistant
+
+    models = []
+
+    def fake_post(self, url, headers=None, json=None):
+        models.append(json["model"])
+        if json["model"] == "main-model":
+            return httpx.Response(429, json={"error": {"message": "TPM"}})
+        return httpx.Response(200, json={"choices": [{"message": {"role": "assistant", "content": "Healthy car."}}]})
+
+    monkeypatch.setattr(httpx.Client, "post", fake_post)
+    s = _settings(groq_api_key="gsk_test", groq_model="main-model", groq_fallback_model="backup-model")
+    out = assistant.ask("What is the current state of the car?", ctx(), s)
+    assert models == ["main-model", "backup-model"] and out["provider"] == "groq"

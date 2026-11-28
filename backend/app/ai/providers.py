@@ -47,7 +47,9 @@ def _system(ctx: ToolContext) -> str:
 
 
 class ProviderError(RuntimeError):
-    pass
+    def __init__(self, message: str, status: int | None = None):
+        super().__init__(message)
+        self.status = status
 
 
 def ask_gemini(question: str, ctx: ToolContext, api_key: str, model: str) -> tuple[str, list[dict]]:
@@ -83,7 +85,7 @@ def ask_gemini(question: str, ctx: ToolContext, api_key: str, model: str) -> tup
 
 def ask_openai(question: str, ctx: ToolContext, api_key: str, model: str, *,
                base_url: str = "https://api.openai.com/v1", label: str = "OpenAI",
-               temperature: float | None = 0.2) -> tuple[str, list[dict]]:
+               temperature: float | None = 0.2, extra: dict[str, Any] | None = None) -> tuple[str, list[dict]]:
     """OpenAI-compatible chat completions with tool calling (OpenAI itself, or the Neon AI Gateway)."""
     tools = [{"type": "function", "function": {"name": n, "description": d, "parameters": s}} for n, (_, d, s) in TOOLS.items()]
     messages: list[dict[str, Any]] = [{"role": "system", "content": _system(ctx)}, {"role": "user", "content": question}]
@@ -93,6 +95,7 @@ def ask_openai(question: str, ctx: ToolContext, api_key: str, model: str, *,
             body: dict[str, Any] = {"model": model, "messages": messages, "tools": tools}
             if temperature is not None:
                 body["temperature"] = temperature
+            body.update(extra or {})
             url, headers = f"{base_url.rstrip('/')}/chat/completions", {"Authorization": f"Bearer {api_key}"}
             resp = client.post(url, headers=headers, json=body)
             wait = _short_retry_after(resp)
@@ -100,7 +103,7 @@ def ask_openai(question: str, ctx: ToolContext, api_key: str, model: str, *,
                 time.sleep(wait)
                 resp = client.post(url, headers=headers, json=body)
             if resp.status_code != 200:
-                raise ProviderError(f"{label} HTTP {resp.status_code}: {resp.text[:300]}")
+                raise ProviderError(f"{label} HTTP {resp.status_code}: {resp.text[:300]}", resp.status_code)
             msg = resp.json()["choices"][0]["message"]
             tcs = msg.get("tool_calls") or []
             if not tcs:
@@ -121,6 +124,24 @@ def ask_neon(question: str, ctx: ToolContext, base_url: str, token: str, model: 
                       label="Neon AI Gateway", temperature=None)
 
 
-def ask_groq(question: str, ctx: ToolContext, api_key: str, model: str) -> tuple[str, list[dict]]:
-    """Groq: OpenAI-compatible chat completions with tool calling."""
-    return ask_openai(question, ctx, api_key, model, base_url="https://api.groq.com/openai/v1", label="Groq")
+def ask_groq(question: str, ctx: ToolContext, api_key: str, models: list[str]) -> tuple[str, list[dict]]:
+    """Groq: OpenAI-compatible chat completions with tool calling.
+
+    Groq's free tier limits tokens per minute *per model*, so when one model is rate-limited (429)
+    the next model in the list is tried before giving up.
+    """
+    err: ProviderError | None = None
+    for model in models:
+        # gpt-oss models spend tokens on reasoning; keep it low and cap the reply so each question
+        # uses (and reserves) less of the per-minute token budget.
+        extra = {"max_completion_tokens": 1200}
+        if "gpt-oss" in model:
+            extra["reasoning_effort"] = "low"
+        try:
+            return ask_openai(question, ctx, api_key, model, base_url="https://api.groq.com/openai/v1",
+                              label=f"Groq ({model})", extra=extra)
+        except ProviderError as e:
+            if e.status != 429:
+                raise
+            err = e
+    raise err or ProviderError("Groq: no model configured")

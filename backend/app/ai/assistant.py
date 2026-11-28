@@ -41,7 +41,8 @@ def ask(question: str, ctx: ToolContext, settings: Settings) -> dict:
         elif provider == "openai":
             text, calls = ask_openai(question, ctx, settings.openai_api_key or "", settings.openai_model)
         elif provider == "groq":
-            text, calls = ask_groq(question, ctx, settings.groq_api_key or "", settings.groq_model)
+            models = [m for m in (settings.groq_model, settings.groq_fallback_model) if m]
+            text, calls = ask_groq(question, ctx, settings.groq_api_key or "", list(dict.fromkeys(models)))
         elif provider == "neon":
             text, calls = ask_neon(question, ctx, settings.neon_ai_gateway_base_url or "",
                                    settings.neon_ai_gateway_token or "", settings.neon_ai_model)

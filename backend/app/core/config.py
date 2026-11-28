@@ -25,7 +25,9 @@ class Settings(BaseSettings):
     openai_model: str = "gpt-4o-mini"
     # Groq (OpenAI-compatible API, https://console.groq.com/keys)
     groq_api_key: str | None = None
-    groq_model: str = "llama-3.3-70b-versatile"
+    groq_model: str = "openai/gpt-oss-120b"
+    # Tried when groq_model is rate-limited (free-tier limits are per model). Empty to disable.
+    groq_fallback_model: str = "openai/gpt-oss-20b"
     # Neon AI Gateway (OpenAI-compatible chat completions); vars are written by `neon deploy` / `neon env pull`.
     neon_ai_gateway_base_url: str | None = None
     neon_ai_gateway_token: str | None = None
