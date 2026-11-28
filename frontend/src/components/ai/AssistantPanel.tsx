@@ -25,11 +25,13 @@ const SUGGESTIONS = [
 /** Minimal, safe markdown: paragraphs, "- " bullets, numbered lists, **bold** and `code`. No HTML injection. */
 function Markdown({ text }: { text: string }) {
   const inline = (s: string): ReactNode[] =>
-    s.split(/(\*\*[^*]+\*\*|`[^`]+`)/g).map((part, i) =>
+    s.split(/(\*\*[^*]+\*\*|`[^`]+`|(?<![\w*])\*[^*\s][^*]*\*(?![\w*]))/g).map((part, i) =>
       part.startsWith("**") && part.endsWith("**") ? (
         <strong key={i} className="font-semibold text-ink">
           {part.slice(2, -2)}
         </strong>
+      ) : part.length > 2 && part.startsWith("*") && part.endsWith("*") ? (
+        <em key={i}>{part.slice(1, -1)}</em>
       ) : part.startsWith("`") && part.endsWith("`") ? (
         <code key={i} className="rounded bg-panel px-1 font-mono text-[11px]">
           {part.slice(1, -1)}
@@ -52,8 +54,48 @@ function Markdown({ text }: { text: string }) {
     );
     list = null;
   };
+  let table: string[][] | null = null;
+  const flushTable = () => {
+    if (!table) return;
+    const [head, ...body] = table;
+    blocks.push(
+      <div key={blocks.length} className="overflow-x-auto">
+        <table className="my-1 w-full border-collapse text-left">
+          <thead>
+            <tr>
+              {head.map((c, i) => (
+                <th key={i} className="border-b border-line px-2 py-1 font-semibold text-ink">
+                  {inline(c)}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {body.map((row, r) => (
+              <tr key={r} className="border-b border-line/50">
+                {row.map((c, i) => (
+                  <td key={i} className="px-2 py-1 align-top">
+                    {inline(c)}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>,
+    );
+    table = null;
+  };
   for (const raw of text.split("\n")) {
     const line = raw.trimEnd();
+    // Markdown table rows: "| a | b |". The "|---|---|" separator row is dropped.
+    if (/^\s*\|.*\|\s*$/.test(line)) {
+      flush();
+      const cells = line.trim().slice(1, -1).split("|").map((c) => c.trim());
+      if (!cells.every((c) => /^:?-{2,}:?$/.test(c))) (table ??= []).push(cells);
+      continue;
+    }
+    flushTable();
     const bullet = /^\s*[-*] (.*)/.exec(line);
     const num = /^\s*\d+\. (.*)/.exec(line);
     if (bullet || num) {
@@ -77,6 +119,7 @@ function Markdown({ text }: { text: string }) {
     );
   }
   flush();
+  flushTable();
   return <div className="space-y-1.5">{blocks}</div>;
 }
 
