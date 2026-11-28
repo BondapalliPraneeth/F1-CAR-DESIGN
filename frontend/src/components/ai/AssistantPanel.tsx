@@ -157,7 +157,11 @@ export function AssistantPanel() {
   const endRef = useRef<HTMLDivElement>(null);
   const nextId = useRef(1);
 
-  useEffect(() => endRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" }), [msgs, busy]);
+  // Braces matter: newer Chromium/Edge return a Promise from scrollIntoView, and React would
+  // call a returned Promise as the effect cleanup ("is not a function"), unmounting the whole app.
+  useEffect(() => {
+    endRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }, [msgs, busy]);
 
   const ask = async (question: string) => {
     const q = question.trim();
