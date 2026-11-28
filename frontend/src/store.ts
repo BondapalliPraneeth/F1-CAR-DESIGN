@@ -4,7 +4,7 @@ import type { Assumptions, CarInfo, ComponentSummary, DamageInput, HistoryItem, 
 import { getSessionId } from "./lib/utils";
 
 export type CameraPreset = "iso" | "front" | "rear" | "left" | "right" | "top";
-export type BottomTab = "dashboard" | "assistant" | "assumptions" | "history";
+export type BottomTab = "dashboard" | "assumptions" | "history";
 
 export interface DamageEntry {
   damage_type: string;
@@ -28,6 +28,7 @@ interface State {
   camera: { preset: CameraPreset; nonce: number };
   screenshotNonce: number;
   bottomTab: BottomTab;
+  chatOpen: boolean;
 
   damage: Record<string, DamageEntry>;
   assumptions: Assumptions;
@@ -56,6 +57,7 @@ interface State {
   setCamera: (p: CameraPreset) => void;
   takeScreenshot: () => void;
   setBottomTab: (t: BottomTab) => void;
+  setChatOpen: (open: boolean) => void;
 
   setDamage: (componentId: string, entry: DamageEntry | null) => void;
   setSeverity: (componentId: string, severity: number) => void;
@@ -109,6 +111,7 @@ export const useStore = create<State>((set, get) => ({
   camera: { preset: "iso", nonce: 0 },
   screenshotNonce: 0,
   bottomTab: "dashboard",
+  chatOpen: false,
 
   damage: {},
   assumptions: {},
@@ -151,6 +154,7 @@ export const useStore = create<State>((set, get) => ({
   setCamera: (p) => set((s) => ({ camera: { preset: p, nonce: s.camera.nonce + 1 } })),
   takeScreenshot: () => set((s) => ({ screenshotNonce: s.screenshotNonce + 1 })),
   setBottomTab: (t) => set({ bottomTab: t }),
+  setChatOpen: (open) => set({ chatOpen: open }),
 
   setDamage(componentId, entry) {
     set((s) => {

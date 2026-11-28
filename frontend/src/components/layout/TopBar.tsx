@@ -37,9 +37,9 @@ export function TopBar() {
   const simError = useStore((s) => s.simError);
   const simulating = useStore((s) => s.simulating);
   const explode = useStore((s) => s.explode);
-  const bottomTab = useStore((s) => s.bottomTab);
+  const chatOpen = useStore((s) => s.chatOpen);
   const hasDamage = useStore((s) => Object.values(s.damage).some((d) => d.severity > 0));
-  const { applyScenario, resetDamage, save, setExplode, setBottomTab } = useStore.getState();
+  const { applyScenario, resetDamage, save, setExplode, setBottomTab, setChatOpen } = useStore.getState();
   const [csvBusy, setCsvBusy] = useState(false);
   const [csvError, setCsvError] = useState<string | null>(null);
   const [nav, setNav] = useState<NavId>("viewer");
@@ -85,11 +85,8 @@ export function TopBar() {
       id: "ai",
       label: "AI Assistant",
       icon: <Bot />,
-      run: () => {
-        setBottomTab("assistant");
-        scrollToId("analysis");
-      },
-      active: nav === "ai" && bottomTab === "assistant",
+      run: () => setChatOpen(!chatOpen),
+      active: chatOpen,
     },
   ];
 

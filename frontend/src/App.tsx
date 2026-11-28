@@ -1,6 +1,6 @@
-import { BarChart3, Bot, History, Loader2, Microscope, SlidersHorizontal, WifiOff } from "lucide-react";
+import { BarChart3, History, Loader2, Microscope, SlidersHorizontal, WifiOff } from "lucide-react";
 import { lazy, Suspense, useEffect } from "react";
-import { AssistantPanel } from "@/components/ai/AssistantPanel";
+import { ChatSidebar } from "@/components/ai/ChatSidebar";
 import { AssumptionsPanel } from "@/components/layout/AssumptionsPanel";
 import { ComponentNav } from "@/components/layout/ComponentNav";
 import { HistoryPanel } from "@/components/layout/HistoryPanel";
@@ -99,9 +99,6 @@ export default function App() {
             <TabsTrigger value="dashboard">
               <BarChart3 /> Performance dashboard
             </TabsTrigger>
-            <TabsTrigger value="assistant">
-              <Bot /> AI Assistant
-            </TabsTrigger>
             <TabsTrigger value="assumptions">
               <SlidersHorizontal /> Assumptions
             </TabsTrigger>
@@ -113,9 +110,6 @@ export default function App() {
             <Suspense fallback={<p className="p-6 text-sm text-ink-3">Loading charts…</p>}>
               <Dashboard />
             </Suspense>
-          </TabsContent>
-          <TabsContent value="assistant" className="mx-auto max-w-4xl">
-            <AssistantPanel />
           </TabsContent>
           <TabsContent value="assumptions">
             <AssumptionsPanel />
@@ -129,6 +123,7 @@ export default function App() {
         ApexVision AV-1 is an original, generic open-wheel concept and is not affiliated with or modelled on any real team or car. All results are MODEL-ESTIMATED from simplified engineering models: not
         CFD, not wind-tunnel data and not validated against a real vehicle. 3D damage is a kinematic visual representation, not a fracture model.
       </footer>
+      <ChatSidebar />
     </div>
   );
 }
